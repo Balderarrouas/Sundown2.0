@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
@@ -35,8 +36,10 @@ namespace Sundown2._0
             });
 
 
-            services.AddDbContext<SundownDbContext>(options =>
-                options.UseNpgsql(Configuration.GetConnectionString("ConnectionString")));
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("ConnectionString")));
+                
+               
 
 
         }

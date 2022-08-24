@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Sundown2._0.Data
 {
-    public class SundownDbContext :DbContext
+    public class ApplicationDbContext :DbContext
     {
-        public SundownDbContext(DbContextOptions<SundownDbContext> options) : base(options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
 
