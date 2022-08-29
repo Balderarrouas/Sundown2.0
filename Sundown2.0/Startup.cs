@@ -13,6 +13,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.Design;
+using Sundown2._0.Services;
 
 namespace Sundown2._0
 {
@@ -30,18 +32,18 @@ namespace Sundown2._0
         {
 
             services.AddControllers();
+            // Format til at tilføje en service
+            // services.AddTransient<IServiceNavn, ServiceNavn>;
+            services.AddTransient<ISpaceStationService, SpaceStationService>();
+            services.AddHttpClient<ISpaceStationService, SpaceStationService>();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Sundown2._0", Version = "v1" });
             });
 
-
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("ConnectionString")));
-                
-               
-
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
