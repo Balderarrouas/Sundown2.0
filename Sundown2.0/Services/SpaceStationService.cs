@@ -37,16 +37,27 @@ namespace Sundown2._0.Services
             var response = await _httpClient.GetAsync(APIURL);
 
 
-
             var jsonResult = await response.Content.ReadAsStringAsync();
 
+            //var landingSite = new 
+            //{
+            //    Name = "Europe",
+            //    xCoordinate = "123124125",
+            //    yCoordinate = 203423842
+            //};
 
+           
 
             // Deserialize response
-            var spaceStation = JsonSerializer.Deserialize<List<SpaceStation>>(jsonResult);
+            var spaceStationList = JsonSerializer.Deserialize<List<SpaceStation>>(jsonResult);
+            var spaceStation = spaceStationList.First();
+            
+            
+
+
+
+
            
-            
-            
             return await response.Content.ReadAsStringAsync();
          }
 

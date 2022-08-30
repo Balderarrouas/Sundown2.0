@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Sundown2._0.Data;
 
 namespace Sundown2._0.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220829144905_Configstuff")]
+    partial class Configstuff
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -126,6 +128,9 @@ namespace Sundown2._0.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<double>("Altitude")
+                        .HasColumnType("float");
+
                     b.Property<double>("Latitude")
                         .HasColumnType("float");
 
@@ -138,57 +143,6 @@ namespace Sundown2._0.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("LandingFacilities");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Latitude = 55.684740222145393,
-                            Longitude = 12.509714835254639,
-                            Name = "Europe"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Latitude = 41.149626026644633,
-                            Longitude = 119.33727554032843,
-                            Name = "China"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Latitude = 40.014407426017335,
-                            Longitude = -103.68329704730307,
-                            Name = "America"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Latitude = -21.029736672213531,
-                            Longitude = 23.770767883255459,
-                            Name = "Africa"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Latitude = -33.007020987324388,
-                            Longitude = 117.83314818861444,
-                            Name = "Australia"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Latitude = 19.330540162912126,
-                            Longitude = 79.14236662251713,
-                            Name = "India"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Latitude = -34.050351176517886,
-                            Longitude = -65.926829655687428,
-                            Name = "Argentina"
-                        });
                 });
 
             modelBuilder.Entity("Sundown2._0.Models.SpaceStation", b =>

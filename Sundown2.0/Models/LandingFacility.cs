@@ -14,6 +14,6 @@ namespace Sundown2._0.Models
         public string Name { get; set; }
         public double Latitude { get; set; }
         public double Longitude { get; set; }
-        public double Altitude  { get; set; }
+        
     }
 }
