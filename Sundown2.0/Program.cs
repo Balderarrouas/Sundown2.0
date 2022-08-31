@@ -14,7 +14,7 @@ namespace Sundown2._0
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build();
+            CreateHostBuilder(args).Build().Run();
 
         }
 

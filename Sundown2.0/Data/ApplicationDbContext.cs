@@ -13,6 +13,7 @@ namespace Sundown2._0.Data
         public DbSet<Astronaut> Astronauts { get; set; }
         public DbSet<LandingFacility> LandingFacilities { get; set; }
         public DbSet<SpaceStation> SpaceStations { get; set; }
+        public DbSet<ClosestLandingFacility> ClosestLandingFacility { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
 
@@ -25,7 +26,7 @@ namespace Sundown2._0.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfiguration(new AstronautConfig());
-            builder.ApplyConfiguration(new LandingFacilityConfig());
+           // builder.ApplyConfiguration(new LandingFacilityConfig());
             base.OnModelCreating(builder);
         }
         
