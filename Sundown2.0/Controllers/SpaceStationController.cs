@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MoreLinq;
+using Sundown2._0.Models;
 using Sundown2._0.Services;
 using System;
 using System.Collections.Generic;
@@ -10,9 +11,9 @@ using System.Threading.Tasks;
 
 namespace Sundown2._0.Controllers
 {
-    [Route("api/[controller]")]
-    [Produces("application/json")]
     [ApiController]
+    [Route("api/[controller]")]
+    [Produces("application/json")]    
     public class SpaceStationController : ControllerBase
     {
         private readonly ILogger<SpaceStationController> _logger;
@@ -24,15 +25,14 @@ namespace Sundown2._0.Controllers
             _spaceStationService = spaceStationService;
         }
 
+
+        
         [HttpGet]
-        public async Task<ActionResult<IExtremaEnumerable<KeyValuePair<string, double>>>> Get(string timestamp)
+        public async Task<ActionResult<ClosestLandingFacility>> Get()
         {
-            var result = await _spaceStationService.Get(timestamp);
+            var result = await _spaceStationService.Get();
 
-
-
-
-            return Ok(result.First());
+            return Ok(result);
         }
 
     }

@@ -136,6 +136,12 @@ namespace Sundown2._0.Migrations
                     b.Property<double>("CurrentDistanceInMeters")
                         .HasColumnType("float");
 
+                    b.Property<double>("Latitude")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Longitude")
+                        .HasColumnType("float");
+
                     b.HasKey("Id");
 
                     b.ToTable("ClosestLandingFacility");
@@ -163,6 +169,64 @@ namespace Sundown2._0.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("LandingFacilities");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            DistanceToISS = 0.0,
+                            Latitude = 55.684740222145393,
+                            Longitude = 12.509714835254639,
+                            Name = "Europe"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            DistanceToISS = 0.0,
+                            Latitude = 41.149626026644633,
+                            Longitude = 119.33727554032843,
+                            Name = "China"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            DistanceToISS = 0.0,
+                            Latitude = 40.014407426017335,
+                            Longitude = -103.68329704730307,
+                            Name = "America"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            DistanceToISS = 0.0,
+                            Latitude = -21.029736672213531,
+                            Longitude = 23.770767883255459,
+                            Name = "Africa"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            DistanceToISS = 0.0,
+                            Latitude = -33.007020987324388,
+                            Longitude = 117.83314818861444,
+                            Name = "Australia"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            DistanceToISS = 0.0,
+                            Latitude = 19.330540162912126,
+                            Longitude = 79.14236662251713,
+                            Name = "India"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            DistanceToISS = 0.0,
+                            Latitude = -34.050351176517886,
+                            Longitude = -65.926829655687428,
+                            Name = "Argentina"
+                        });
                 });
 
             modelBuilder.Entity("Sundown2._0.Models.SpaceStation", b =>

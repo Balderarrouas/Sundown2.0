@@ -7,6 +7,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Sundown2._0.Data;
 using Sundown2._0.Services;
+using Coravel;
+using System.Reflection;
+using System.Net.Http.Headers;
 
 namespace Sundown2._0
 {
@@ -22,12 +25,30 @@ namespace Sundown2._0
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            
             services.AddControllers();
             // Format til at tilføje en service
             // services.AddTransient<IServiceNavn, ServiceNavn>;
             services.AddTransient<ISpaceStationService, SpaceStationService>();
+            services.AddTransient<ILandingForecastService, LandingForecastService>();
             services.AddHttpClient<ISpaceStationService, SpaceStationService>();
+            //services.AddHttpClient<ILandingForecastService, LandingForecastService>();
+            services.AddTransient<SaveEveryFiveMinutes>();
+            services.AddScheduler();
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
+            services.AddHttpClient<ILandingForecastService, LandingForecastService>("sundown", config =>
+            {
+                var productValue = new ProductInfoHeaderValue("Sundown", "2.0");
+                var commentValue = new ProductInfoHeaderValue("(+https://localhost:44302/api/landingforecast)");
+
+                config.DefaultRequestHeaders.UserAgent.Add(productValue);
+                config.DefaultRequestHeaders.UserAgent.Add(commentValue);
+            });
+
+
+
+
 
             services.AddSwaggerGen(c =>
             {
@@ -47,6 +68,15 @@ namespace Sundown2._0
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Sundown2._0 v1"));
             }
+
+            // Coravel Scheduler
+            var provider = app.ApplicationServices;
+            provider.UseScheduler(scheduler =>
+            {
+                scheduler.Schedule<SaveEveryFiveMinutes>()
+                .EveryFiveMinutes();             
+            });
+
 
             app.UseHttpsRedirection();
 

@@ -35,8 +35,7 @@ namespace Sundown2._0.Services
             return unixDateTime;
         }
 
-
-        public async Task<IExtremaEnumerable<KeyValuePair<string, double>>> Get(string timestamp)
+        public async Task<ClosestLandingFacility> Get()
         {
 
             long unixTimestamp = ConvertDatetimeToUnixTimeStamp(DateTime.Now);
@@ -47,16 +46,13 @@ namespace Sundown2._0.Services
             var jsonResult = await response.Content.ReadAsStringAsync();
            
 
-            // Deserialize response
+            // Deserialize jsonResult
             var spaceStationList = JsonSerializer.Deserialize<List<SpaceStation>>(jsonResult);
             var spaceStation = spaceStationList.First();
 
             var issCoord = new GeoCoordinate(spaceStation.Latitude, spaceStation.Longitude);
 
-
-
-
-
+ 
             var europeCoord = new GeoCoordinate(55.68474022214539, 12.50971483525464);
             var chinaCoord = new GeoCoordinate(41.14962602664463, 119.33727554032843);
             var americaCoord = new GeoCoordinate(40.014407426017335, -103.68329704730307);
@@ -64,7 +60,6 @@ namespace Sundown2._0.Services
             var australiaCoord = new GeoCoordinate(-33.00702098732439, 117.83314818861444);
             var indiaCoord = new GeoCoordinate(19.330540162912126, 79.14236662251713);
             var argentinaCoord = new GeoCoordinate(-34.050351176517886, -65.92682965568743);
-
 
 
             Dictionary<string, double> distanceDict = new Dictionary<string, double>();
@@ -77,20 +72,35 @@ namespace Sundown2._0.Services
             distanceDict.Add("India", issCoord.GetDistanceTo(americaCoord));
             distanceDict.Add("Argentina", issCoord.GetDistanceTo(argentinaCoord));
 
+            var landings = _applicationDbContext.LandingFacilities.ToList();
 
-           
             var closestLanding = distanceDict.MinBy(kvp => kvp.Value);
 
             ClosestLandingFacility currentClosest = new ClosestLandingFacility();
             currentClosest.CountryName = closestLanding.First().Key;
             currentClosest.CurrentDistanceInMeters = closestLanding.First().Value;
+            foreach (var x in landings)
+            {
+                if (x.Name == currentClosest.CountryName)
+                {
+                    currentClosest.Latitude = x.Latitude;
+                    currentClosest.Longitude = x.Longitude;
+                }
+            }
             currentClosest.CreatedAt = DateTime.Now;
+
+
+
+
+            
+            
+
 
             _applicationDbContext.Add(currentClosest);
             _applicationDbContext.SaveChanges();
 
 
-            return closestLanding;
+            return currentClosest;
          }
 
 

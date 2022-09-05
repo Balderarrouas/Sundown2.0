@@ -1,5 +1,4 @@
-﻿using MoreLinq;
-using Sundown2._0.Models;
+﻿using Sundown2._0.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace Sundown2._0.Services
 {
-    public interface ISpaceStationService
+    public interface ILandingForecastService
     {
-        Task<ClosestLandingFacility> Get();
+        Task<LandingTime> Get();
+
     }
 }
