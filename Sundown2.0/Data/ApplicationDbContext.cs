@@ -1,11 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Sundown2._0.Data.Config;
+using Sundown2._0.Entities;
 using Sundown2._0.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Sundown2._0.Data
 {
@@ -15,11 +12,9 @@ namespace Sundown2._0.Data
         public DbSet<LandingFacility> LandingFacilities { get; set; }
         public DbSet<SpaceStation> SpaceStations { get; set; }
         public DbSet<ClosestLandingFacility> ClosestLandingFacility { get; set; }
+        
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
-
-
-
 
         }
 

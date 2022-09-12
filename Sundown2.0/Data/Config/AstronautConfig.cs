@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Sundown2._0.Entities;
 using Sundown2._0.Models;
+using Sundown2._0.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,78 +11,79 @@ using System.Threading.Tasks;
 namespace Sundown2._0.Data.Config
 {
     public class AstronautConfig : IEntityTypeConfiguration<Astronaut>
-    {
+    {        
+        
         public void Configure(EntityTypeBuilder<Astronaut> builder)
         {
             builder.HasData(
                     new Astronaut
                     {
-                        Id = 1,
+                        AstronautId = 1,
                         FirstName = "Yuri",
                         LastName = "Gagarin",
                         CodeName = "First Man",
                         Username = "yuga",
                         Email = "yuga@mtr.moon",
-                        Password = "poleposition1",
+                        Password = "ucJa3b1m3QCZvHM67PqYNTjKrqm6xJ01C/cXXSlvcRM=:eNJJotJygM5lfRT7VsnM5w==",
                         Avatar = ""
                     },
                      new Astronaut
                      {
-                         Id = 2,
+                         AstronautId = 2,
                          FirstName = "Alan",
                          LastName = "Shepard",
                          CodeName = "Shepard",
                          Username = "alsh",
                          Email = "alsh@mtr.moon",
-                         Password = "secret",
+                         Password = "ITzi4V0MySnXMJA5WJu+p/zrjJ7v8F6JR//bUq7kzTM=:54+4rtMAB8384oiNiNCTDg==",
                          Avatar = ""
 
                      },
                      new Astronaut
                      {
-                         Id = 3,
+                         AstronautId = 3,
                          FirstName = "Valentina",
                          LastName = "Tereshkova",
                          CodeName = "Valentine",
                          Username = "vate",
                          Email = "vate@mtr.moon",
-                         Password = "DQ!cnRVYzQ64@Fwha!XB_kYn",
+                         Password = "F0RxBSmnVern/V/fHx4SNRMeZ+G6y/weNcBI37ONaSg=:/7FYNPQaAzjB+Qv7oTaXVw==",
                          Avatar = ""
 
                      },
                      new Astronaut
                      {
-                         Id = 4,
+                         AstronautId = 4,
                          FirstName = "Guion",
                          LastName = "Bluford",
                          CodeName = "bluey",
                          Username = "gubi",
                          Email = "gubi@mtr.moon",
-                         Password = "STS-8!Challenger1983",
+                         Password = "VHblRfxl4dZ2pPNtHWih3gAWtQKtRwa4rtvctzafJPo=:/mo5k7OFhrEkp6m+z0PNsA==",
                          Avatar = ""
 
                      },
                      new Astronaut
                      {
-                         Id = 5,
+                         AstronautId = 5,
                          FirstName = "Andreas",
                          LastName = "Mogensen",
                          CodeName = "Great Dane",
                          Username = "anmo",
                          Email = "anmo@mtr.moon",
-                         Password = "rødgrødmedfløde",
+                         Password = "K2HIUcKqjvNUUoHSWczlnnSnR4s6gWZ1F4sqGexWQGI=:mlopqmOCKizStvRG3z14PQ==",
                          Avatar = ""
 
                      },
                      new Astronaut
                      {
-                         Id = 6,
+                         AstronautId = 6,
                          FirstName = "Yi",
                          LastName = "So-Yeon",
                          CodeName = "Neon",
                          Username = "yiso",
                          Email = "yiso@mtr.moon",
-                         Password = "K2t@dACRkGCd3-UQQmCZJbTj",
+                         Password = "zygdXJKeXaglxCmRv3uF7c7Jhn/KMEIhSdEZqwJRRow=:sdRQ1lQmTJ+3F8N0jnSUCQ==",
                          Avatar = ""
 
                      }

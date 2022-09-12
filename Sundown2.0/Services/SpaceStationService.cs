@@ -1,6 +1,7 @@
 ﻿using GeoCoordinatePortable;
 using MoreLinq;
 using Sundown2._0.Data;
+using Sundown2._0.Entities;
 using Sundown2._0.Models;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,12 @@ using System.Threading.Tasks;
 
 namespace Sundown2._0.Services
 {
+    public interface ISpaceStationService
+    {
+        Task<ClosestLandingFacility> Get();
+    }
+
+
     public class SpaceStationService : ISpaceStationService
     {
         private Uri BaseAddress = new Uri("https://api.wheretheiss.at/");
@@ -38,7 +45,8 @@ namespace Sundown2._0.Services
         public async Task<ClosestLandingFacility> Get()
         {
 
-            long unixTimestamp = ConvertDatetimeToUnixTimeStamp(DateTime.Now);
+            
+            long unixTimestamp = ConvertDatetimeToUnixTimeStamp(DateTime.UtcNow);
             string APIURL = $"v1/satellites/25544/positions?timestamps={unixTimestamp}";
             var response = await _httpClient.GetAsync(APIURL);
 
@@ -51,8 +59,20 @@ namespace Sundown2._0.Services
             var spaceStation = spaceStationList.First();
 
             var issCoord = new GeoCoordinate(spaceStation.Latitude, spaceStation.Longitude);
+                      
+            //var landingSiteList = _applicationDbContext.LandingFacilities.ToList();
 
- 
+            //var GeoCoordinateList = new List<GeoCoordinate>();
+            //foreach (var landingSite in landingSiteList)
+            //{
+            //    GeoCoordinateList.Add(new GeoCoordinate(landingSite.Latitude, landingSite.Longitude));
+            //}
+            //Dictionary<string, double> distanceToLandingSiteDict = new Dictionary<string, double>();
+            //foreach (var item in GeoCoordinateList)
+            //{
+                
+            //}
+           
             var europeCoord = new GeoCoordinate(55.68474022214539, 12.50971483525464);
             var chinaCoord = new GeoCoordinate(41.14962602664463, 119.33727554032843);
             var americaCoord = new GeoCoordinate(40.014407426017335, -103.68329704730307);
@@ -72,35 +92,28 @@ namespace Sundown2._0.Services
             distanceDict.Add("India", issCoord.GetDistanceTo(americaCoord));
             distanceDict.Add("Argentina", issCoord.GetDistanceTo(argentinaCoord));
 
-            var landings = _applicationDbContext.LandingFacilities.ToList();
+            var landingSites = _applicationDbContext.LandingFacilities.ToList();
 
             var closestLanding = distanceDict.MinBy(kvp => kvp.Value);
 
-            ClosestLandingFacility currentClosest = new ClosestLandingFacility();
-            currentClosest.CountryName = closestLanding.First().Key;
-            currentClosest.CurrentDistanceInMeters = closestLanding.First().Value;
-            foreach (var x in landings)
+            ClosestLandingFacility currentClosestLandingSite = new ClosestLandingFacility(closestLanding.First().Key, closestLanding.First().Value);
+            
+            foreach (var landingSiteItems in landingSites)
             {
-                if (x.Name == currentClosest.CountryName)
+                if (landingSiteItems.Name == currentClosestLandingSite.CountryName)
                 {
-                    currentClosest.Latitude = x.Latitude;
-                    currentClosest.Longitude = x.Longitude;
+                    currentClosestLandingSite.Latitude = landingSiteItems.Latitude;
+                    currentClosestLandingSite.Longitude = landingSiteItems.Longitude;
                 }
             }
-            currentClosest.CreatedAt = DateTime.Now;
 
+            currentClosestLandingSite.CreatedAt = DateTime.UtcNow;
 
-
-
-            
-            
-
-
-            _applicationDbContext.Add(currentClosest);
+            _applicationDbContext.Add(currentClosestLandingSite);
             _applicationDbContext.SaveChanges();
 
 
-            return currentClosest;
+            return currentClosestLandingSite;
          }
 
 

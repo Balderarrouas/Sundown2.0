@@ -10,6 +10,10 @@ using Sundown2._0.Services;
 using Coravel;
 using System.Reflection;
 using System.Net.Http.Headers;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System;
 
 namespace Sundown2._0
 {
@@ -31,11 +35,45 @@ namespace Sundown2._0
             // services.AddTransient<IServiceNavn, ServiceNavn>;
             services.AddTransient<ISpaceStationService, SpaceStationService>();
             services.AddTransient<ILandingForecastService, LandingForecastService>();
+            services.AddTransient<IUserService, UserService>();
+            // services.AddTransient<IPasswordHasherService, PassWordHasherService>();
             services.AddHttpClient<ISpaceStationService, SpaceStationService>();
-            //services.AddHttpClient<ILandingForecastService, LandingForecastService>();
             services.AddTransient<SaveEveryFiveMinutes>();
             services.AddScheduler();
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
+            // TODO 
+            // configure strongly typed settings objects <--- ??? spørg om dette
+            var appSettingsSection = Configuration.GetSection("AppSettings");
+            services.Configure<AppSettings>(appSettingsSection);
+
+            // TODO - Få en gennemgang af dette
+            // configure jwt authentication
+            var appSettings = appSettingsSection.Get<AppSettings>();
+            var key = Encoding.ASCII.GetBytes(appSettings.Secret);
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+           .AddJwtBearer(x =>
+           {
+               x.RequireHttpsMetadata = false;
+               x.SaveToken = true;
+               x.TokenValidationParameters = new TokenValidationParameters
+               {
+                   ValidateIssuerSigningKey = true,
+                   IssuerSigningKey = new SymmetricSecurityKey(key),
+                   ValidateIssuer = false,
+                   ValidateAudience = false,
+                   // set clockskew to zero so tokens expire exactly at token expiration time (instead of 5 minutes later)
+                   ClockSkew = TimeSpan.Zero
+               };
+           });
+
+
+
+
 
             services.AddHttpClient<ILandingForecastService, LandingForecastService>("sundown", config =>
             {
@@ -53,7 +91,14 @@ namespace Sundown2._0
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Sundown2._0", Version = "v1" });
+
+
+                
             });
+
+            
+
+
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("ConnectionString")));
@@ -82,8 +127,9 @@ namespace Sundown2._0
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
-
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

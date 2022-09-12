@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Sundown2._0.Models
+namespace Sundown2._0.Entities
 {
     public class ClosestLandingFacility
     {
@@ -15,5 +15,17 @@ namespace Sundown2._0.Models
         public double Latitude { get; set; }
         public double Longitude { get; set; }
         public DateTime CreatedAt { get; set; }
+
+
+
+
+        public ClosestLandingFacility(string countryName, double currentDistanceInMeters)
+        {
+            CountryName = countryName;
+            CurrentDistanceInMeters = currentDistanceInMeters;
+        }
     }
+
+    
+
 }

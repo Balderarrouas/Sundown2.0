@@ -10,7 +10,7 @@ using Sundown2._0.Data;
 namespace Sundown2._0.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220901120805_InitialCreate")]
+    [Migration("20220912121902_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,9 +21,9 @@ namespace Sundown2._0.Migrations
                 .HasAnnotation("ProductVersion", "5.0.17")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Sundown2._0.Models.Astronaut", b =>
+            modelBuilder.Entity("Sundown2._0.Entities.Astronaut", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("AstronautId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -49,80 +49,80 @@ namespace Sundown2._0.Migrations
                     b.Property<string>("Username")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("AstronautId");
 
                     b.ToTable("Astronauts");
 
                     b.HasData(
                         new
                         {
-                            Id = 1,
+                            AstronautId = 1,
                             Avatar = "",
                             CodeName = "First Man",
                             Email = "yuga@mtr.moon",
                             FirstName = "Yuri",
                             LastName = "Gagarin",
-                            Password = "poleposition1",
+                            Password = "ucJa3b1m3QCZvHM67PqYNTjKrqm6xJ01C/cXXSlvcRM=:eNJJotJygM5lfRT7VsnM5w==",
                             Username = "yuga"
                         },
                         new
                         {
-                            Id = 2,
+                            AstronautId = 2,
                             Avatar = "",
                             CodeName = "Shepard",
                             Email = "alsh@mtr.moon",
                             FirstName = "Alan",
                             LastName = "Shepard",
-                            Password = "secret",
+                            Password = "ITzi4V0MySnXMJA5WJu+p/zrjJ7v8F6JR//bUq7kzTM=:54+4rtMAB8384oiNiNCTDg==",
                             Username = "alsh"
                         },
                         new
                         {
-                            Id = 3,
+                            AstronautId = 3,
                             Avatar = "",
                             CodeName = "Valentine",
                             Email = "vate@mtr.moon",
                             FirstName = "Valentina",
                             LastName = "Tereshkova",
-                            Password = "DQ!cnRVYzQ64@Fwha!XB_kYn",
+                            Password = "F0RxBSmnVern/V/fHx4SNRMeZ+G6y/weNcBI37ONaSg=:/7FYNPQaAzjB+Qv7oTaXVw==",
                             Username = "vate"
                         },
                         new
                         {
-                            Id = 4,
+                            AstronautId = 4,
                             Avatar = "",
                             CodeName = "bluey",
                             Email = "gubi@mtr.moon",
                             FirstName = "Guion",
                             LastName = "Bluford",
-                            Password = "STS-8!Challenger1983",
+                            Password = "VHblRfxl4dZ2pPNtHWih3gAWtQKtRwa4rtvctzafJPo=:/mo5k7OFhrEkp6m+z0PNsA==",
                             Username = "gubi"
                         },
                         new
                         {
-                            Id = 5,
+                            AstronautId = 5,
                             Avatar = "",
                             CodeName = "Great Dane",
                             Email = "anmo@mtr.moon",
                             FirstName = "Andreas",
                             LastName = "Mogensen",
-                            Password = "rødgrødmedfløde",
+                            Password = "K2HIUcKqjvNUUoHSWczlnnSnR4s6gWZ1F4sqGexWQGI=:mlopqmOCKizStvRG3z14PQ==",
                             Username = "anmo"
                         },
                         new
                         {
-                            Id = 6,
+                            AstronautId = 6,
                             Avatar = "",
                             CodeName = "Neon",
                             Email = "yiso@mtr.moon",
                             FirstName = "Yi",
                             LastName = "So-Yeon",
-                            Password = "K2t@dACRkGCd3-UQQmCZJbTj",
+                            Password = "zygdXJKeXaglxCmRv3uF7c7Jhn/KMEIhSdEZqwJRRow=:sdRQ1lQmTJ+3F8N0jnSUCQ==",
                             Username = "yiso"
                         });
                 });
 
-            modelBuilder.Entity("Sundown2._0.Models.ClosestLandingFacility", b =>
+            modelBuilder.Entity("Sundown2._0.Entities.ClosestLandingFacility", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -149,7 +149,7 @@ namespace Sundown2._0.Migrations
                     b.ToTable("ClosestLandingFacility");
                 });
 
-            modelBuilder.Entity("Sundown2._0.Models.LandingFacility", b =>
+            modelBuilder.Entity("Sundown2._0.Entities.LandingFacility", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -231,6 +231,115 @@ namespace Sundown2._0.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Sundown2._0.Entities.MissionImage", b =>
+                {
+                    b.Property<int>("MissionImageId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CameraName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Img")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("MissionReportId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MyProperty")
+                        .HasColumnType("int");
+
+                    b.Property<string>("RoverName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("RoverStatus")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("MissionImageId");
+
+                    b.HasIndex("MissionReportId");
+
+                    b.ToTable("MissionImage");
+                });
+
+            modelBuilder.Entity("Sundown2._0.Entities.MissionReport", b =>
+                {
+                    b.Property<int>("MissionReportId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AstronautId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("FinalisationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double>("Latitude")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Longitude")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("MissionDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("MissionReportId");
+
+                    b.HasIndex("AstronautId");
+
+                    b.ToTable("MissionReport");
+                });
+
+            modelBuilder.Entity("Sundown2._0.Entities.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Username")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+                });
+
             modelBuilder.Entity("Sundown2._0.Models.SpaceStation", b =>
                 {
                     b.Property<int>("Id")
@@ -277,6 +386,36 @@ namespace Sundown2._0.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("SpaceStations");
+                });
+
+            modelBuilder.Entity("Sundown2._0.Entities.MissionImage", b =>
+                {
+                    b.HasOne("Sundown2._0.Entities.MissionReport", null)
+                        .WithMany("MissionImages")
+                        .HasForeignKey("MissionReportId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Sundown2._0.Entities.MissionReport", b =>
+                {
+                    b.HasOne("Sundown2._0.Entities.Astronaut", "Astronaut")
+                        .WithMany("MissionReports")
+                        .HasForeignKey("AstronautId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Astronaut");
+                });
+
+            modelBuilder.Entity("Sundown2._0.Entities.Astronaut", b =>
+                {
+                    b.Navigation("MissionReports");
+                });
+
+            modelBuilder.Entity("Sundown2._0.Entities.MissionReport", b =>
+                {
+                    b.Navigation("MissionImages");
                 });
 #pragma warning restore 612, 618
         }
