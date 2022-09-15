@@ -11,6 +11,7 @@ using System.Security.Cryptography;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using Sundown2._0.Entities;
+using System.Collections.Generic;
 
 namespace Sundown2._0.Services
 {
@@ -18,7 +19,9 @@ namespace Sundown2._0.Services
 
     public interface IUserService
     {
-        AuthenticateResponse Authenticate(AuthenticateRequest model);        
+        AuthenticateResponse Authenticate(AuthenticateRequest model);
+        // testing
+        IEnumerable<Astronaut> GetAll();
     }
 
 
@@ -37,6 +40,12 @@ namespace Sundown2._0.Services
             _context = applicationDbContext;
             _appSettings = appSettings.Value;
             _mapper = mapper;   
+        }
+
+        // testing
+        public IEnumerable<Astronaut> GetAll()
+        {
+            return _context.Astronauts.ToList();
         }
 
 
@@ -79,7 +88,7 @@ namespace Sundown2._0.Services
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, astronaut.AstronautId.ToString())
+                    new Claim(ClaimTypes.UserData, astronaut.AstronautId.ToString())
                 }),
                 Expires = DateTime.UtcNow.AddMinutes(15),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)

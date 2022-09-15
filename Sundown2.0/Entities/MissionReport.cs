@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Sundown2._0.Entities
@@ -21,8 +22,16 @@ namespace Sundown2._0.Entities
         public DateTime? UpdatedAt { get; set; }
         public DateTime? DeletedAt { get; set; }
         public int AstronautId { get; set; }
-        public Astronaut? Astronaut { get; set; }
-        public List<MissionImage>? MissionImages { get; set; }
+        [JsonIgnore]
+        public Astronaut Astronaut { get; set; }
+        [JsonIgnore]
+        public List<MissionImage> MissionImages { get; set; }
+
+
+        public MissionReport()
+        {
+
+        }
 
 
 

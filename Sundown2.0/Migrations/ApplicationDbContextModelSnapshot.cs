@@ -245,20 +245,20 @@ namespace Sundown2._0.Migrations
                     b.Property<DateTime>("DeletedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Img")
+                    b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("MissionReportId")
                         .HasColumnType("int");
 
-                    b.Property<int>("MyProperty")
+                    b.Property<int>("RoverId")
                         .HasColumnType("int");
 
                     b.Property<string>("RoverName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("RoverStatus")
-                        .HasColumnType("bit");
+                    b.Property<string>("RoverStatus")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
@@ -267,7 +267,7 @@ namespace Sundown2._0.Migrations
 
                     b.HasIndex("MissionReportId");
 
-                    b.ToTable("MissionImage");
+                    b.ToTable("MissionImages");
                 });
 
             modelBuilder.Entity("Sundown2._0.Entities.MissionReport", b =>
@@ -280,10 +280,10 @@ namespace Sundown2._0.Migrations
                     b.Property<int>("AstronautId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("CreatedAt")
+                    b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DeletedAt")
+                    b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
@@ -304,14 +304,14 @@ namespace Sundown2._0.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("UpdatedAt")
+                    b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.HasKey("MissionReportId");
 
                     b.HasIndex("AstronautId");
 
-                    b.ToTable("MissionReport");
+                    b.ToTable("MissionReports");
                 });
 
             modelBuilder.Entity("Sundown2._0.Models.SpaceStation", b =>

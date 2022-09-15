@@ -1,18 +1,20 @@
 ﻿using Sundown2._0.Data;
 using Sundown2._0.Models;
-using System.Threading.Tasks;
 using System.IO;
 using Microsoft.Extensions.Options;
 using Sundown2._0.Entities;
-using Microsoft.AspNetCore.Mvc;
 using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Text;
+using Microsoft.AspNetCore.Http;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Sundown2._0.Services
 {
 
     public interface IMissionReportService
     {
-        MissionReport CreateMissionReport(MissionReportRequestModel model);
+        MissionReport Create(MissionReportRequestModel model, int userId);
         void UploadMissionImage(MissionImageRequestModel model);
     }
 
@@ -30,24 +32,18 @@ namespace Sundown2._0.Services
             _context = applicationDbContext;
         }
 
-
-        public MissionReport CreateMissionReport(MissionReportRequestModel model)
+        
+        public MissionReport Create(MissionReportRequestModel model, int userId)
         {
-
+            
             var missionReport = new MissionReport(model);
             missionReport.CreatedAt = DateTime.UtcNow;
-            missionReport.AstronautId = 1;
-
+            missionReport.UpdatedAt = DateTime.UtcNow;
+            missionReport.AstronautId = userId;
 
             _context.MissionReports.Add(missionReport);
             _context.SaveChanges();
-
             
-
-
-            
-           
-           
             return missionReport;
         }
 

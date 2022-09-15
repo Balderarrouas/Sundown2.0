@@ -23,6 +23,7 @@ namespace Sundown2._0.Models
         public DateTime MissionDate { get; set; }
         [Required]
         public DateTime FinalisationDate { get; set; }
+
         
 
 

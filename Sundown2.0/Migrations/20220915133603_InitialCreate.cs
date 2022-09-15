@@ -84,7 +84,7 @@ namespace Sundown2._0.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "MissionReport",
+                name: "MissionReports",
                 columns: table => new
                 {
                     MissionReportId = table.Column<int>(type: "int", nullable: false)
@@ -95,16 +95,16 @@ namespace Sundown2._0.Migrations
                     Longitude = table.Column<double>(type: "float", nullable: false),
                     MissionDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     FinalisationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     AstronautId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MissionReport", x => x.MissionReportId);
+                    table.PrimaryKey("PK_MissionReports", x => x.MissionReportId);
                     table.ForeignKey(
-                        name: "FK_MissionReport_Astronauts_AstronautId",
+                        name: "FK_MissionReports_Astronauts_AstronautId",
                         column: x => x.AstronautId,
                         principalTable: "Astronauts",
                         principalColumn: "AstronautId",
@@ -112,16 +112,16 @@ namespace Sundown2._0.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "MissionImage",
+                name: "MissionImages",
                 columns: table => new
                 {
                     MissionImageId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CameraName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RoverName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    MyProperty = table.Column<int>(type: "int", nullable: false),
-                    RoverStatus = table.Column<bool>(type: "bit", nullable: false),
-                    Img = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RoverId = table.Column<int>(type: "int", nullable: false),
+                    RoverStatus = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -129,11 +129,11 @@ namespace Sundown2._0.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MissionImage", x => x.MissionImageId);
+                    table.PrimaryKey("PK_MissionImages", x => x.MissionImageId);
                     table.ForeignKey(
-                        name: "FK_MissionImage_MissionReport_MissionReportId",
+                        name: "FK_MissionImages_MissionReports_MissionReportId",
                         column: x => x.MissionReportId,
-                        principalTable: "MissionReport",
+                        principalTable: "MissionReports",
                         principalColumn: "MissionReportId",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -166,13 +166,13 @@ namespace Sundown2._0.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_MissionImage_MissionReportId",
-                table: "MissionImage",
+                name: "IX_MissionImages_MissionReportId",
+                table: "MissionImages",
                 column: "MissionReportId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MissionReport_AstronautId",
-                table: "MissionReport",
+                name: "IX_MissionReports_AstronautId",
+                table: "MissionReports",
                 column: "AstronautId");
         }
 
@@ -185,13 +185,13 @@ namespace Sundown2._0.Migrations
                 name: "LandingFacilities");
 
             migrationBuilder.DropTable(
-                name: "MissionImage");
+                name: "MissionImages");
 
             migrationBuilder.DropTable(
                 name: "SpaceStations");
 
             migrationBuilder.DropTable(
-                name: "MissionReport");
+                name: "MissionReports");
 
             migrationBuilder.DropTable(
                 name: "Astronauts");

@@ -44,9 +44,16 @@ namespace Sundown2._0.Controllers
             return Ok(response);
         }
 
-        
+        // test endpoint
+        [Authorize]
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            var astronauts = _userService.GetAll();
+            return Ok(astronauts);
+        }
 
-        
+
 
 
         //[AllowAnonymous]
