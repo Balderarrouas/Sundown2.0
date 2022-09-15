@@ -27,6 +27,7 @@
 
   <ItemGroup>
     <Folder Include="Helpers\" />
+    <Folder Include="Media\Images\" />
     <Folder Include="Migrations\" />
   </ItemGroup>
 

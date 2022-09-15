@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sundown2._0.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -16,11 +17,28 @@ namespace Sundown2._0.Entities
         public double Longitude { get; set; }
         public DateTime MissionDate { get; set; }
         public DateTime FinalisationDate { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public DateTime UpdatedAt { get; set; }
-        public DateTime DeletedAt { get; set; }
+        public DateTime? CreatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
+        public DateTime? DeletedAt { get; set; }
         public int AstronautId { get; set; }
-        public Astronaut Astronaut { get; set; }
-        public List<MissionImage> MissionImages { get; set; }
+        public Astronaut? Astronaut { get; set; }
+        public List<MissionImage>? MissionImages { get; set; }
+
+
+
+        public MissionReport(MissionReportRequestModel model)
+        {
+            Name = model.Name;
+            Description = model.Description;
+            Latitude = model.Latitude;
+            Longitude = model.Longitude;
+            MissionDate = model.MissionDate;
+            FinalisationDate = model.FinalisationDate;
+            
+        }
     }
+
+    
+
+
 }

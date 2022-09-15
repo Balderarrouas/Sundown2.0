@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Sundown2._0.Models
 {
-    public class Root
+    public class WaetherForecast
     {
 
         public string type { get; set; }

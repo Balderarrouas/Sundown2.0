@@ -12,6 +12,8 @@ namespace Sundown2._0.Data
         public DbSet<LandingFacility> LandingFacilities { get; set; }
         public DbSet<SpaceStation> SpaceStations { get; set; }
         public DbSet<ClosestLandingFacility> ClosestLandingFacility { get; set; }
+        public DbSet<MissionReport> MissionReports { get; set; }
+        public DbSet<MissionImage> MissionImages { get; set; }
         
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {

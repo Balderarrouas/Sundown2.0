@@ -55,7 +55,7 @@ namespace Sundown2._0.Migrations
                         new
                         {
                             AstronautId = 1,
-                            Avatar = "",
+                            Avatar = "C:\\Usersalde\\source\\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Yuga.jpg",
                             CodeName = "First Man",
                             Email = "yuga@mtr.moon",
                             FirstName = "Yuri",
@@ -66,7 +66,7 @@ namespace Sundown2._0.Migrations
                         new
                         {
                             AstronautId = 2,
-                            Avatar = "",
+                            Avatar = "C:\\Users\\balde\\source\\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Alsh.jpg",
                             CodeName = "Shepard",
                             Email = "alsh@mtr.moon",
                             FirstName = "Alan",
@@ -77,7 +77,7 @@ namespace Sundown2._0.Migrations
                         new
                         {
                             AstronautId = 3,
-                            Avatar = "",
+                            Avatar = "C:\\Users\\balde\\source\\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Vate.jpg",
                             CodeName = "Valentine",
                             Email = "vate@mtr.moon",
                             FirstName = "Valentina",
@@ -88,18 +88,18 @@ namespace Sundown2._0.Migrations
                         new
                         {
                             AstronautId = 4,
-                            Avatar = "",
+                            Avatar = "C:\\Users\\balde\\source\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Gubl.jpg",
                             CodeName = "bluey",
                             Email = "gubi@mtr.moon",
                             FirstName = "Guion",
                             LastName = "Bluford",
                             Password = "VHblRfxl4dZ2pPNtHWih3gAWtQKtRwa4rtvctzafJPo=:/mo5k7OFhrEkp6m+z0PNsA==",
-                            Username = "gubi"
+                            Username = "gubl"
                         },
                         new
                         {
                             AstronautId = 5,
-                            Avatar = "",
+                            Avatar = "C:\\Users\\balde\\source\\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Anmo.jpg",
                             CodeName = "Great Dane",
                             Email = "anmo@mtr.moon",
                             FirstName = "Andreas",
@@ -110,7 +110,7 @@ namespace Sundown2._0.Migrations
                         new
                         {
                             AstronautId = 6,
-                            Avatar = "",
+                            Avatar = "C:\\Users\\balde\\source\\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Yiso.jpeg",
                             CodeName = "Neon",
                             Email = "yiso@mtr.moon",
                             FirstName = "Yi",
@@ -312,30 +312,6 @@ namespace Sundown2._0.Migrations
                     b.HasIndex("AstronautId");
 
                     b.ToTable("MissionReport");
-                });
-
-            modelBuilder.Entity("Sundown2._0.Entities.User", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Username")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Sundown2._0.Models.SpaceStation", b =>

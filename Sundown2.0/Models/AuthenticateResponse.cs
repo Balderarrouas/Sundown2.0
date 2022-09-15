@@ -39,14 +39,5 @@ namespace Sundown2._0.Models
         }
 
 
-        //public AuthenticateResponse(User user, string jwtToken, string refreshToken)
-        //{
-        //    Id = user.Id;
-        //    FirstName = user.FirstName;
-        //    LastName = user.LastName;            
-        //    Username = user.Username;                        
-        //    JwtToken = jwtToken;
-        //    RefreshToken = refreshToken;
-        //}
     }
 }

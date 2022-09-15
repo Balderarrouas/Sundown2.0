@@ -13,9 +13,9 @@ namespace Sundown2._0.Entities
         public int MissionImageId { get; set; }
         public string CameraName { get; set; }
         public string RoverName { get; set; }
-        public int MyProperty { get; set; }
-        public bool RoverStatus { get; set; }
-        public string Img { get; set; }
+        public int RoverId { get; set; }
+        public string RoverStatus { get; set; }
+        public string Image { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
         public DateTime DeletedAt { get; set; }

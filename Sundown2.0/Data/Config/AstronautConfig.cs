@@ -15,6 +15,8 @@ namespace Sundown2._0.Data.Config
         
         public void Configure(EntityTypeBuilder<Astronaut> builder)
         {
+
+            // builder.HasQueryFilter(x => x.DeletedAt = null);
             builder.HasData(
                     new Astronaut
                     {
@@ -25,7 +27,7 @@ namespace Sundown2._0.Data.Config
                         Username = "yuga",
                         Email = "yuga@mtr.moon",
                         Password = "ucJa3b1m3QCZvHM67PqYNTjKrqm6xJ01C/cXXSlvcRM=:eNJJotJygM5lfRT7VsnM5w==",
-                        Avatar = ""
+                        Avatar = "C:\\Users\balde\\source\\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Yuga.jpg"                       
                     },
                      new Astronaut
                      {
@@ -36,8 +38,7 @@ namespace Sundown2._0.Data.Config
                          Username = "alsh",
                          Email = "alsh@mtr.moon",
                          Password = "ITzi4V0MySnXMJA5WJu+p/zrjJ7v8F6JR//bUq7kzTM=:54+4rtMAB8384oiNiNCTDg==",
-                         Avatar = ""
-
+                         Avatar = "C:\\Users\\balde\\source\\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Alsh.jpg"
                      },
                      new Astronaut
                      {
@@ -48,7 +49,7 @@ namespace Sundown2._0.Data.Config
                          Username = "vate",
                          Email = "vate@mtr.moon",
                          Password = "F0RxBSmnVern/V/fHx4SNRMeZ+G6y/weNcBI37ONaSg=:/7FYNPQaAzjB+Qv7oTaXVw==",
-                         Avatar = ""
+                         Avatar = "C:\\Users\\balde\\source\\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Vate.jpg"
 
                      },
                      new Astronaut
@@ -57,10 +58,10 @@ namespace Sundown2._0.Data.Config
                          FirstName = "Guion",
                          LastName = "Bluford",
                          CodeName = "bluey",
-                         Username = "gubi",
+                         Username = "gubl",
                          Email = "gubi@mtr.moon",
                          Password = "VHblRfxl4dZ2pPNtHWih3gAWtQKtRwa4rtvctzafJPo=:/mo5k7OFhrEkp6m+z0PNsA==",
-                         Avatar = ""
+                         Avatar = "C:\\Users\\balde\\source\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Gubl.jpg"
 
                      },
                      new Astronaut
@@ -72,7 +73,7 @@ namespace Sundown2._0.Data.Config
                          Username = "anmo",
                          Email = "anmo@mtr.moon",
                          Password = "K2HIUcKqjvNUUoHSWczlnnSnR4s6gWZ1F4sqGexWQGI=:mlopqmOCKizStvRG3z14PQ==",
-                         Avatar = ""
+                         Avatar = "C:\\Users\\balde\\source\\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Anmo.jpg"
 
                      },
                      new Astronaut
@@ -84,7 +85,7 @@ namespace Sundown2._0.Data.Config
                          Username = "yiso",
                          Email = "yiso@mtr.moon",
                          Password = "zygdXJKeXaglxCmRv3uF7c7Jhn/KMEIhSdEZqwJRRow=:sdRQ1lQmTJ+3F8N0jnSUCQ==",
-                         Avatar = ""
+                         Avatar = "C:\\Users\\balde\\source\\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Yiso.jpeg"
 
                      }
                      );

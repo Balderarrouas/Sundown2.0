@@ -14,6 +14,8 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
 
 namespace Sundown2._0
 {
@@ -38,6 +40,7 @@ namespace Sundown2._0
             services.AddTransient<IUserService, UserService>();
             // services.AddTransient<IPasswordHasherService, PassWordHasherService>();
             services.AddHttpClient<ISpaceStationService, SpaceStationService>();
+            services.AddTransient<IMissionReportService, MissionReportService>();
             services.AddTransient<SaveEveryFiveMinutes>();
             services.AddScheduler();
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
@@ -72,9 +75,6 @@ namespace Sundown2._0
            });
 
 
-
-
-
             services.AddHttpClient<ILandingForecastService, LandingForecastService>("sundown", config =>
             {
                 var productValue = new ProductInfoHeaderValue("Sundown", "2.0");
@@ -85,20 +85,10 @@ namespace Sundown2._0
             });
 
 
-
-
-
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Sundown2._0", Version = "v1" });
-
-
-                
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Sundown2._0", Version = "v1" });           
             });
-
-            
-
-
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("ConnectionString")));
@@ -124,6 +114,13 @@ namespace Sundown2._0
 
 
             app.UseHttpsRedirection();
+
+            app.UseFileServer(new FileServerOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                Path.Combine(Directory.GetCurrentDirectory(), "Media")),
+                RequestPath = "/Media",               
+            }); ;
 
             app.UseRouting();
 

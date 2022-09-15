@@ -58,7 +58,7 @@ namespace Sundown2._0.Services
             var jsonResult = await response.Content.ReadAsStringAsync();
 
 
-            var weatherForecast = JsonSerializer.Deserialize<Root>(jsonResult);
+            var weatherForecast = JsonSerializer.Deserialize<WaetherForecast>(jsonResult);
 
             // Sortere items fra timeseries by air_temp fra lavest til højest(default for .OrderBy)
             var timeseriesList = weatherForecast.properties.timeseries.OrderBy(timeseriesItem => timeseriesItem.data.instant.details.air_temperature);
