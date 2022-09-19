@@ -10,7 +10,7 @@ namespace Sundown2._0.Entities
 {
     public class MissionReport
     {
-        [Key]
+        [Key]        
         public int MissionReportId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
@@ -22,9 +22,7 @@ namespace Sundown2._0.Entities
         public DateTime? UpdatedAt { get; set; }
         public DateTime? DeletedAt { get; set; }
         public int AstronautId { get; set; }
-        [JsonIgnore]
         public Astronaut Astronaut { get; set; }
-        [JsonIgnore]
         public List<MissionImage> MissionImages { get; set; }
 
 
@@ -35,16 +33,16 @@ namespace Sundown2._0.Entities
 
 
 
-        public MissionReport(MissionReportRequestModel model)
-        {
-            Name = model.Name;
-            Description = model.Description;
-            Latitude = model.Latitude;
-            Longitude = model.Longitude;
-            MissionDate = model.MissionDate;
-            FinalisationDate = model.FinalisationDate;
+        //public MissionReport(ReportDTO model)
+        //{
+        //    Name = model.Name;
+        //    Description = model.Description;
+        //    Latitude = model.Latitude;
+        //    Longitude = model.Longitude;
+        //    MissionDate = model.MissionDate;
+        //    FinalisationDate = model.FinalisationDate;
             
-        }
+        //}
     }
 
     

@@ -20,8 +20,7 @@ namespace Sundown2._0.Services
     public interface IUserService
     {
         AuthenticateResponse Authenticate(AuthenticateRequest model);
-        // testing
-        IEnumerable<Astronaut> GetAll();
+        
     }
 
 
@@ -32,27 +31,19 @@ namespace Sundown2._0.Services
 
         private ApplicationDbContext _context;
         private readonly AppSettings _appSettings;
-        private readonly IMapper _mapper;
 
         public UserService(ApplicationDbContext applicationDbContext,
-            IOptions<AppSettings> appSettings, IMapper mapper)
+            IOptions<AppSettings> appSettings)
         {
             _context = applicationDbContext;
             _appSettings = appSettings.Value;
-            _mapper = mapper;   
         }
 
-        // testing
-        public IEnumerable<Astronaut> GetAll()
-        {
-            return _context.Astronauts.ToList();
-        }
+        
 
 
         public AuthenticateResponse Authenticate(AuthenticateRequest model)
         {
-            //var something = Encoding.ASCII.GetBytes(_appSettings.Secret);
-            //var hashedModelPassword = HashPassword(model.Password, Encoding.ASCII.GetBytes(_appSettings.Secret));
             foreach (var userItem in _context.Astronauts)
 
             {
@@ -90,7 +81,7 @@ namespace Sundown2._0.Services
                 {
                     new Claim(ClaimTypes.UserData, astronaut.AstronautId.ToString())
                 }),
-                Expires = DateTime.UtcNow.AddMinutes(15),
+                Expires = DateTime.UtcNow.AddMinutes(30),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);

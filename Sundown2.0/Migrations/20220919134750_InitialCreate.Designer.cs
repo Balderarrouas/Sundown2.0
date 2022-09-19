@@ -10,7 +10,7 @@ using Sundown2._0.Data;
 namespace Sundown2._0.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220915133603_InitialCreate")]
+    [Migration("20220919134750_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -241,10 +241,10 @@ namespace Sundown2._0.Migrations
                     b.Property<string>("CameraName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedAt")
+                    b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DeletedAt")
+                    b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Image")
@@ -262,7 +262,7 @@ namespace Sundown2._0.Migrations
                     b.Property<string>("RoverStatus")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("UpdatedAt")
+                    b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.HasKey("MissionImageId");

@@ -8,35 +8,48 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections;
+using System.Collections.Generic;
+using AutoMapper;
 
 namespace Sundown2._0.Services
 {
 
     public interface IMissionReportService
     {
-        MissionReport Create(MissionReportRequestModel model, int userId);
-        void UploadMissionImage(MissionImageRequestModel model);
+        MissionReport Create(MissionReportDTO model, int userId);
+        List<MissionReport> GetAll();
+        MissionReport GetById(int id);
+        MissionReport Update(MissionReportDTO model, int id);
+        MissionReport Delete(int id);        
     }
 
 
     public class MissionReportService : IMissionReportService
     {
 
-        private readonly AppSettings _appSettings;
+        
         private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
 
 
-        public MissionReportService(IOptions<AppSettings> appSettings, ApplicationDbContext applicationDbContext)
+        public MissionReportService(ApplicationDbContext applicationDbContext, IMapper mapper)
         {
-            _appSettings = appSettings.Value;
+            
             _context = applicationDbContext;
+            _mapper = mapper;
         }
 
         
-        public MissionReport Create(MissionReportRequestModel model, int userId)
+        public MissionReport Create(MissionReportDTO model, int userId)
         {
+
             
-            var missionReport = new MissionReport(model);
+            var missionReport = _mapper.Map<MissionReport>(model);
             missionReport.CreatedAt = DateTime.UtcNow;
             missionReport.UpdatedAt = DateTime.UtcNow;
             missionReport.AstronautId = userId;
@@ -47,20 +60,47 @@ namespace Sundown2._0.Services
             return missionReport;
         }
 
-        public void UploadMissionImage(MissionImageRequestModel model)
+
+        public List<MissionReport> GetAll()
         {
-            
-            var filePath = Path.Combine(_appSettings.MediaFolder, model.MissionImage.FileName);
-
-            using (var stream = new FileStream(filePath, FileMode.Create))
-            {
-                model.MissionImage.CopyTo(stream);
-            }
-
-            return;
+            return _context.MissionReports.ToList();
         }
 
 
+        public MissionReport GetById(int id)
+        {
+            var missionreport = _context.MissionReports.FirstOrDefault(x => x.MissionReportId == id);
+            missionreport.MissionImages = _context.MissionImages.Where(x => x.MissionReportId == id).ToList();
+            return missionreport;
+        }
 
+
+        public MissionReport Update(MissionReportDTO model, int id)
+        {
+            var reportToUpdate = _context.MissionReports.FirstOrDefault(x => x.MissionReportId == id);
+            reportToUpdate.Name = model.Name;
+            reportToUpdate.Description = model.Description;
+            reportToUpdate.Latitude = model.Latitude;
+            reportToUpdate.Longitude = model.Longitude;
+            reportToUpdate.MissionDate = model.MissionDate;
+            reportToUpdate.FinalisationDate = model.FinalisationDate;
+            reportToUpdate.UpdatedAt = DateTime.UtcNow;
+
+            _context.MissionReports.Update(reportToUpdate);
+            _context.SaveChanges();
+                        
+            return reportToUpdate;
+        }
+
+
+        public MissionReport Delete(int id)
+        {
+
+            var reportToDelete = _context.MissionReports.Find(id);
+            _context.MissionReports.Remove(reportToDelete);
+            _context.SaveChanges();
+            
+            return reportToDelete;
+        }
     }
 }

@@ -12,19 +12,16 @@ namespace Sundown2._0.Controllers
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class AstronautController : ControllerBase
+    public class UserController : ControllerBase
     {
         private IUserService _userService;
-        private IMapper _mapper;
         private readonly AppSettings _appSettings;
 
-        public AstronautController(
+        public UserController(
            IUserService userService,
-           IMapper mapper,
            IOptions<AppSettings> appSettings)
         {
             _userService = userService;
-            _mapper = mapper;
             _appSettings = appSettings.Value;
         }
 
@@ -44,24 +41,11 @@ namespace Sundown2._0.Controllers
             return Ok(response);
         }
 
-        // test endpoint
-        [Authorize]
-        [HttpGet]
-        public IActionResult GetAll()
-        {
-            var astronauts = _userService.GetAll();
-            return Ok(astronauts);
-        }
+       
 
 
 
 
-        //[AllowAnonymous]
-        //[HttpPost("register")]
-        //public IActionResult Register(RegisterRequest model)
-        //{
-        //    _userService.Register(model);
-        //    return Ok(new { message = "Registration successful" });
-        //}
+        
     }
 }

@@ -38,12 +38,14 @@ namespace Sundown2._0
             services.AddTransient<ISpaceStationService, SpaceStationService>();
             services.AddTransient<ILandingForecastService, LandingForecastService>();
             services.AddTransient<IUserService, UserService>();
+            //TODO 
             // services.AddTransient<IPasswordHasherService, PassWordHasherService>();
             services.AddHttpClient<ISpaceStationService, SpaceStationService>();
             services.AddTransient<IMissionReportService, MissionReportService>();
+            services.AddTransient<IMissionImageService, MissionImageService>();
             services.AddTransient<SaveEveryFiveMinutes>();
             services.AddScheduler();
-            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             // TODO 
             // configure strongly typed settings objects <--- ??? spørg om dette
