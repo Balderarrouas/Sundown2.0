@@ -8,7 +8,6 @@ using Microsoft.OpenApi.Models;
 using Sundown2._0.Data;
 using Sundown2._0.Services;
 using Coravel;
-using System.Reflection;
 using System.Net.Http.Headers;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -16,6 +15,7 @@ using Microsoft.IdentityModel.Tokens;
 using System;
 using Microsoft.Extensions.FileProviders;
 using System.IO;
+using Sundown2._0.ExceptionHandling;
 
 namespace Sundown2._0
 {
@@ -128,7 +128,9 @@ namespace Sundown2._0
 
             app.UseAuthentication();
             app.UseAuthorization();
-            
+
+            // Udkommenter i tilfælde af ting
+            app.UseMiddleware<ErrorHandlingMiddleware>();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

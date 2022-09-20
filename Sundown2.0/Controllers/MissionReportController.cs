@@ -1,11 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Sundown2._0.Entities;
 using Sundown2._0.Models;
 using Sundown2._0.Services;
 using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace Sundown2._0.Controllers
 {
@@ -33,11 +31,8 @@ namespace Sundown2._0.Controllers
         public IActionResult Create(MissionReportDTO model)
         {
             var httpContext = HttpContext;
-            var jwt = httpContext.Request.Headers["Authorization"];
-            var userIdString = httpContext.User?.Claims.First(x => x.Type == ClaimTypes.UserData).Value;
-            var userId = int.Parse(userIdString);
-
-            var response = _missionReportService.Create(model, userId);
+            
+            var response = _missionReportService.Create(model, httpContext);
 
             return Ok(response);
         }
@@ -50,7 +45,7 @@ namespace Sundown2._0.Controllers
             return Ok(response);
         }
 
-        [AllowAnonymous]
+        
         [HttpGet("getbyid/{id}")]
         public IActionResult GetById(int id)
         {

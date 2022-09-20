@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 using Sundown2._0.Data;
 using Sundown2._0.Models;
 using System;
@@ -11,11 +10,10 @@ using System.Security.Cryptography;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using Sundown2._0.Entities;
-using System.Collections.Generic;
 
 namespace Sundown2._0.Services
 {
-    
+
 
     public interface IUserService
     {

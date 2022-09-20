@@ -2,12 +2,12 @@
 using Microsoft.Extensions.Options;
 using Sundown2._0.Data;
 using Sundown2._0.Entities;
+using Sundown2._0.ExceptionHandling.Exceptions;
 using Sundown2._0.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Sundown2._0.Services
 {
@@ -68,9 +68,15 @@ namespace Sundown2._0.Services
         }
 
 
+
         public MissionImage GetById(int id)
         {
             var missionImage = _context.MissionImages.FirstOrDefault(x => x.MissionImageId == id);
+
+            if (missionImage == null)
+            {
+                throw new CustomNotFoundException($"missionImage with {id} could not be found");
+            }
 
             return missionImage;
         }
@@ -85,6 +91,11 @@ namespace Sundown2._0.Services
             }
 
             var imageToUpdate = _context.MissionImages.FirstOrDefault(x => x.MissionImageId == id);
+
+            if (imageToUpdate == null)
+            {
+                throw new CustomNotFoundException($"missionImage with {id} could not be found");
+            }
             imageToUpdate.CameraName = model.CameraName;
             imageToUpdate.RoverName = model.RoverName;
             imageToUpdate.RoverId = model.RoverId;
@@ -103,6 +114,11 @@ namespace Sundown2._0.Services
         public MissionImage Delete(int id)
         {
             var imageToDelete = _context.MissionImages.Find(id);
+
+            if (imageToDelete == null)
+            {
+                throw new CustomNotFoundException($"missionImage with {id} could not be found");
+            }
             _context.MissionImages.Remove(imageToDelete);
             _context.SaveChanges();
 

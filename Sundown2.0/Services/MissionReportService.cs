@@ -1,27 +1,20 @@
 ﻿using Sundown2._0.Data;
 using Sundown2._0.Models;
-using System.IO;
-using Microsoft.Extensions.Options;
 using Sundown2._0.Entities;
 using System;
-using System.IdentityModel.Tokens.Jwt;
-using System.Text;
-using Microsoft.AspNetCore.Http;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.EntityFrameworkCore;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using System.Collections;
 using System.Collections.Generic;
 using AutoMapper;
+using Sundown2._0.ExceptionHandling.Exceptions;
+using Microsoft.AspNetCore.Http;
+using System.Security.Claims;
 
 namespace Sundown2._0.Services
 {
 
     public interface IMissionReportService
     {
-        MissionReport Create(MissionReportDTO model, int userId);
+        MissionReport Create(MissionReportDTO model, HttpContext httpContext1);
         List<MissionReport> GetAll();
         MissionReport GetById(int id);
         MissionReport Update(MissionReportDTO model, int id);
@@ -31,7 +24,6 @@ namespace Sundown2._0.Services
 
     public class MissionReportService : IMissionReportService
     {
-
         
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -45,10 +37,15 @@ namespace Sundown2._0.Services
         }
 
         
-        public MissionReport Create(MissionReportDTO model, int userId)
+        public MissionReport Create(MissionReportDTO model, HttpContext userHttpContext)
         {
+            var httpContext = userHttpContext;
+            var jwt = httpContext.Request.Headers["Authorization"];
 
-            
+            var userIdString = httpContext.User?.Claims.First(x => x.Type == ClaimTypes.UserData).Value;
+            var userId = int.Parse(userIdString);
+
+
             var missionReport = _mapper.Map<MissionReport>(model);
             missionReport.CreatedAt = DateTime.UtcNow;
             missionReport.UpdatedAt = DateTime.UtcNow;
@@ -62,14 +59,20 @@ namespace Sundown2._0.Services
 
 
         public List<MissionReport> GetAll()
-        {
+        {            
             return _context.MissionReports.ToList();
         }
 
 
         public MissionReport GetById(int id)
         {
-            var missionreport = _context.MissionReports.FirstOrDefault(x => x.MissionReportId == id);
+            
+            var missionreport = _context.MissionReports.SingleOrDefault(x => x.MissionReportId == id);
+
+            if (missionreport == null)
+            {
+                throw new CustomNotFoundException($"missionreport with {id} could not be found");
+            }
             missionreport.MissionImages = _context.MissionImages.Where(x => x.MissionReportId == id).ToList();
             return missionreport;
         }
@@ -77,7 +80,12 @@ namespace Sundown2._0.Services
 
         public MissionReport Update(MissionReportDTO model, int id)
         {
-            var reportToUpdate = _context.MissionReports.FirstOrDefault(x => x.MissionReportId == id);
+            var reportToUpdate = _context.MissionReports.SingleOrDefault(x => x.MissionReportId == id);
+
+            if (reportToUpdate == null)
+            {
+                throw new CustomNotFoundException($"missionreport with {id} could not be found");
+            }
             reportToUpdate.Name = model.Name;
             reportToUpdate.Description = model.Description;
             reportToUpdate.Latitude = model.Latitude;
@@ -97,6 +105,11 @@ namespace Sundown2._0.Services
         {
 
             var reportToDelete = _context.MissionReports.Find(id);
+
+            if (reportToDelete == null)
+            {
+                throw new CustomNotFoundException($"missionreport with {id} could not be found");
+            }
             _context.MissionReports.Remove(reportToDelete);
             _context.SaveChanges();
             

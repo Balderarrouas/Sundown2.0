@@ -2,6 +2,7 @@
 using MoreLinq;
 using Sundown2._0.Data;
 using Sundown2._0.Entities;
+using Sundown2._0.ExceptionHandling.Exceptions;
 using Sundown2._0.Models;
 using System;
 using System.Collections.Generic;
@@ -34,45 +35,29 @@ namespace Sundown2._0.Services
             _applicationDbContext = context;
         }
 
-        public static long ConvertDatetimeToUnixTimeStamp(DateTime date)
-        {
-            var dateTimeOffset = new DateTimeOffset(date);
-            var unixDateTime = dateTimeOffset.ToUnixTimeSeconds();
-
-            return unixDateTime;
-        }
+        
 
         public async Task<ClosestLandingFacility> Get()
         {
-
             
             long unixTimestamp = ConvertDatetimeToUnixTimeStamp(DateTime.UtcNow);
             string APIURL = $"v1/satellites/25544/positions?timestamps={unixTimestamp}";
             var response = await _httpClient.GetAsync(APIURL);
 
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new CustomFetchFromApiException($"{BaseAddress}{APIURL} returned {response.StatusCode}");
+            }
 
-            var jsonResult = await response.Content.ReadAsStringAsync();
-           
+            var jsonResult = await response.Content.ReadAsStringAsync();           
 
             // Deserialize jsonResult
             var spaceStationList = JsonSerializer.Deserialize<List<SpaceStation>>(jsonResult);
             var spaceStation = spaceStationList.First();
 
-            var issCoord = new GeoCoordinate(spaceStation.Latitude, spaceStation.Longitude);
-                      
-            //var landingSiteList = _applicationDbContext.LandingFacilities.ToList();
 
-            //var GeoCoordinateList = new List<GeoCoordinate>();
-            //foreach (var landingSite in landingSiteList)
-            //{
-            //    GeoCoordinateList.Add(new GeoCoordinate(landingSite.Latitude, landingSite.Longitude));
-            //}
-            //Dictionary<string, double> distanceToLandingSiteDict = new Dictionary<string, double>();
-            //foreach (var item in GeoCoordinateList)
-            //{
-                
-            //}
-           
+            var issCoord = new GeoCoordinate(spaceStation.Latitude, spaceStation.Longitude);
+                                             
             var europeCoord = new GeoCoordinate(55.68474022214539, 12.50971483525464);
             var chinaCoord = new GeoCoordinate(41.14962602664463, 119.33727554032843);
             var americaCoord = new GeoCoordinate(40.014407426017335, -103.68329704730307);
@@ -115,6 +100,15 @@ namespace Sundown2._0.Services
 
             return currentClosestLandingSite;
          }
+
+        // Helper Methods 
+        public static long ConvertDatetimeToUnixTimeStamp(DateTime date)
+        {
+            var dateTimeOffset = new DateTimeOffset(date);
+            var unixDateTime = dateTimeOffset.ToUnixTimeSeconds();
+
+            return unixDateTime;
+        }
 
 
     }
