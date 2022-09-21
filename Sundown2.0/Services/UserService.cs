@@ -10,6 +10,7 @@ using System.Security.Cryptography;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using Sundown2._0.Entities;
+using Sundown2._0.ExceptionHandling.Exceptions;
 
 namespace Sundown2._0.Services
 {
@@ -57,7 +58,12 @@ namespace Sundown2._0.Services
             var user = _context.Astronauts.SingleOrDefault(x => x.Username == model.Username && x.Password == model.Password);
 
             // return null if user not found
-            if (user == null) return null;
+            if (user == null)
+            {
+                throw new CustomNotFoundException("Username or password is incorrect");
+             // return null;
+            }
+                
 
             // authentication successful so generate jwt token
             var token = GenerateJwtToken(user);

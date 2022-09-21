@@ -46,13 +46,17 @@ namespace Sundown2._0.Services
             {
                 throw new CustomFetchFromApiException($"{BaseAddress}{APIURL} returned {response.StatusCode}");
             }
-
-            // TODO håndter response i tilfælde af fejl
+            
             var jsonResult = await response.Content.ReadAsStringAsync();
             var weatherForecast = JsonSerializer.Deserialize<WaetherForecast>(jsonResult);
 
             // Sortere items fra timeseries by air_temp fra lavest til højest(default for .OrderBy)
             var timeseriesList = weatherForecast.properties.timeseries.OrderBy(timeseriesItem => timeseriesItem.data.instant.details.air_temperature);
+
+            if (timeseriesList.Count() == 0)
+            {
+                throw new CustomApplicationException("No items added to timeseriesList");
+            }
 
             // Looper items
             foreach (var item in timeseriesList)

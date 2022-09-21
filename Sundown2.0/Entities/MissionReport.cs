@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FluentValidation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -28,17 +29,8 @@ namespace Sundown2._0.Entities
         }
 
 
-
-        //public MissionReport(ReportDTO model)
-        //{
-        //    Name = model.Name;
-        //    Description = model.Description;
-        //    Latitude = model.Latitude;
-        //    Longitude = model.Longitude;
-        //    MissionDate = model.MissionDate;
-        //    FinalisationDate = model.FinalisationDate;
-            
-        //}
+        
+        
     }
 
     

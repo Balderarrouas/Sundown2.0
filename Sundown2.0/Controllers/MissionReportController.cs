@@ -26,7 +26,7 @@ namespace Sundown2._0.Controllers
         }
 
 
-        
+        [AllowAnonymous]
         [HttpPost("create")]
         public IActionResult Create(MissionReportDTO model)
         {

@@ -38,12 +38,16 @@ namespace Sundown2._0.ExceptionHandling
                         response.StatusCode = (int)HttpStatusCode.NotFound;
                         break;
 
-                    case ApplicationException e:
+                    case CustomApplicationException e:
                         response.StatusCode = (int)HttpStatusCode.BadRequest;
                         break;
 
                     case CustomFetchFromApiException e:
                         response.StatusCode = (int)HttpStatusCode.ServiceUnavailable;
+                        break;
+
+                    case CustomValidationException e:
+                        response.StatusCode = (int)HttpStatusCode.BadRequest;
                         break;
 
                     default:

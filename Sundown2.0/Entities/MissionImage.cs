@@ -1,12 +1,11 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 
 namespace Sundown2._0.Entities
 {
     public class MissionImage
 
     {
-        [Key]
+        
         public int MissionImageId { get; set; }
         public string CameraName { get; set; }
         public string RoverName { get; set; }

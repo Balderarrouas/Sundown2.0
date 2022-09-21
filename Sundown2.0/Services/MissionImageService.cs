@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using FluentValidation;
+using FluentValidation.Results;
 using Microsoft.Extensions.Options;
 using Sundown2._0.Data;
 using Sundown2._0.Entities;
@@ -29,13 +31,15 @@ namespace Sundown2._0.Services
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
         private readonly AppSettings _appSettings;
+        private IValidator<MissionImageDTO> _validator;
 
         public MissionImageService(ApplicationDbContext applicationDbContext, 
-            IMapper mapper, IOptions<AppSettings> appSettings)
+            IMapper mapper, IOptions<AppSettings> appSettings, IValidator<MissionImageDTO> validator)
         {
             _context = applicationDbContext;
             _mapper = mapper;
             _appSettings = appSettings.Value;
+            _validator = validator;
         }
 
 
@@ -43,6 +47,13 @@ namespace Sundown2._0.Services
 
         public MissionImage Create(MissionImageDTO model)
         {
+            ValidationResult result = _validator.Validate(model);
+
+            if (!result.IsValid)
+            {
+                throw new CustomValidationException("Request body did not fulfill the neccesary validation requirements");
+            }
+
             var missionImage = _mapper.Map<MissionImage>(model);
 
             var filePath = Path.Combine(_appSettings.MediaFolder, model.Img.FileName);
@@ -84,6 +95,13 @@ namespace Sundown2._0.Services
 
         public MissionImage Update(MissionImageDTO model, int id)
         {
+            ValidationResult result = _validator.Validate(model);
+
+            if (!result.IsValid)
+            {
+                throw new CustomValidationException("Request body did not fulfill the neccesary validation requirements");
+            }
+
             var filePath = Path.Combine(_appSettings.MediaFolder, model.Img.FileName);
             using (var stream = new FileStream(filePath, FileMode.Create))
             {

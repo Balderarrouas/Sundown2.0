@@ -8,6 +8,8 @@ using AutoMapper;
 using Sundown2._0.ExceptionHandling.Exceptions;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
+using FluentValidation;
+using FluentValidation.Results;
 
 namespace Sundown2._0.Services
 {
@@ -27,21 +29,29 @@ namespace Sundown2._0.Services
         
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
+        private IValidator<MissionReportDTO> _validator;
 
 
-        public MissionReportService(ApplicationDbContext applicationDbContext, IMapper mapper)
-        {
-            
+        public MissionReportService(ApplicationDbContext applicationDbContext, 
+            IMapper mapper, IValidator<MissionReportDTO> validator)
+        {            
             _context = applicationDbContext;
             _mapper = mapper;
+            _validator = validator;
         }
 
         
         public MissionReport Create(MissionReportDTO model, HttpContext userHttpContext)
         {
+            ValidationResult result = _validator.Validate(model); 
+
+            if (!result.IsValid)
+            {
+                throw new CustomValidationException("Request body did not fulfill the neccesary validation requirements");
+            }
+
             var httpContext = userHttpContext;
             var jwt = httpContext.Request.Headers["Authorization"];
-
             var userIdString = httpContext.User?.Claims.First(x => x.Type == ClaimTypes.UserData).Value;
             var userId = int.Parse(userIdString);
 
@@ -80,6 +90,13 @@ namespace Sundown2._0.Services
 
         public MissionReport Update(MissionReportDTO model, int id)
         {
+            ValidationResult result = _validator.Validate(model);
+
+            if (!result.IsValid)
+            {
+                throw new CustomValidationException("Request body did not fulfill the neccesary validation requirements");
+            }
+
             var reportToUpdate = _context.MissionReports.SingleOrDefault(x => x.MissionReportId == id);
 
             if (reportToUpdate == null)

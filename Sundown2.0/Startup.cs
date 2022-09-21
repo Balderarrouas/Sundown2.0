@@ -16,6 +16,8 @@ using System;
 using Microsoft.Extensions.FileProviders;
 using System.IO;
 using Sundown2._0.ExceptionHandling;
+using FluentValidation;
+using Sundown2._0.Models;
 
 namespace Sundown2._0
 {
@@ -44,6 +46,8 @@ namespace Sundown2._0
             services.AddTransient<IMissionReportService, MissionReportService>();
             services.AddTransient<IMissionImageService, MissionImageService>();
             services.AddTransient<SaveEveryFiveMinutes>();
+            //services.AddScoped<IValidator<MissionReportDTO>, MissionReportDTOValidator>();
+            services.AddValidatorsFromAssemblyContaining<MissionReportDTOValidator>();
             services.AddScheduler();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
