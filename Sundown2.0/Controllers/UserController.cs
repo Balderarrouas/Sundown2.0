@@ -8,7 +8,7 @@ using Sundown2._0.Services;
 
 namespace Sundown2._0.Controllers
 {
-    [Authorize]
+    
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
@@ -23,28 +23,14 @@ namespace Sundown2._0.Controllers
             _userService = userService;
             _appSettings = appSettings.Value;
         }
-
-
         
-
-
-        [AllowAnonymous]
+        
         [HttpPost("authenticate")]
         public IActionResult Authenticate(AuthenticateRequest model)
         {
             var response = _userService.Authenticate(model);
 
-            //if (response == null)
-            //    return BadRequest(new { message = "Username or password is incorrect" });
-
             return Ok(response);
-        }
-
-       
-
-
-
-
-        
+        } 
     }
 }

@@ -19,7 +19,6 @@ namespace Sundown2._0.Controllers
         }
 
 
-
         [HttpGet("getAllReports")]
         public IActionResult GetAllReports()
         {

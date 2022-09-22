@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 using FluentValidation;
 using FluentValidation.Results;
+using System.Threading.Tasks;
 
 namespace Sundown2._0.Services
 {
@@ -17,7 +18,7 @@ namespace Sundown2._0.Services
     public interface IMissionReportService
     {
         MissionReport Create(MissionReportDTO model, HttpContext httpContext1);
-        List<MissionReport> GetAll();
+        Task<List<MissionReport>> GetAll();
         MissionReport GetById(Guid id);
         MissionReport Update(MissionReportDTO model, Guid id);
         MissionReport Delete(Guid id);        
@@ -32,6 +33,8 @@ namespace Sundown2._0.Services
         private IValidator<MissionReportDTO> _validator;
 
 
+        
+
         public MissionReportService(ApplicationDbContext applicationDbContext, 
             IMapper mapper, IValidator<MissionReportDTO> validator)
         {            
@@ -40,7 +43,8 @@ namespace Sundown2._0.Services
             _validator = validator;
         }
 
-        
+       
+
         public MissionReport Create(MissionReportDTO model, HttpContext userHttpContext)
         {
             ValidationResult result = _validator.Validate(model); 
@@ -75,7 +79,7 @@ namespace Sundown2._0.Services
         }
 
 
-        public List<MissionReport> GetAll()
+        public async Task<List<MissionReport>> GetAll()
         {            
             return _context.MissionReports.ToList();
         }

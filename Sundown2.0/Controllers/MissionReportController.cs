@@ -5,6 +5,7 @@ using Sundown2._0.Services;
 using System;
 using System.Linq;
 using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace Sundown2._0.Controllers
 {
@@ -38,10 +39,11 @@ namespace Sundown2._0.Controllers
             return Ok(response);
         }
 
+        
         [HttpGet("getAll")]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var response = _missionReportService.GetAll();
+            var response = await _missionReportService.GetAll();
 
             return Ok(response);
         }

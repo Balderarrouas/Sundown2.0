@@ -20,7 +20,6 @@ namespace Sundown2._0.Controllers
             _spaceStationService = spaceStationService;
         }
 
-
         
         [HttpGet]
         public async Task<ActionResult<ClosestLandingFacility>> Get()

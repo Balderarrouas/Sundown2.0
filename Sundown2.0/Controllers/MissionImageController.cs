@@ -19,7 +19,6 @@ namespace Sundown2._0.Controllers
             _missionImageService = missionImageService;
         }
 
-
         
         [HttpPost("create")]
         public IActionResult Create([FromForm]MissionImageDTO model)
