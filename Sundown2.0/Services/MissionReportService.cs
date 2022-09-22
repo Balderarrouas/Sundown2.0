@@ -18,9 +18,9 @@ namespace Sundown2._0.Services
     {
         MissionReport Create(MissionReportDTO model, HttpContext httpContext1);
         List<MissionReport> GetAll();
-        MissionReport GetById(int id);
-        MissionReport Update(MissionReportDTO model, int id);
-        MissionReport Delete(int id);        
+        MissionReport GetById(Guid id);
+        MissionReport Update(MissionReportDTO model, Guid id);
+        MissionReport Delete(Guid id);        
     }
 
 
@@ -44,11 +44,18 @@ namespace Sundown2._0.Services
         public MissionReport Create(MissionReportDTO model, HttpContext userHttpContext)
         {
             ValidationResult result = _validator.Validate(model); 
-
+            
             if (!result.IsValid)
             {
                 throw new CustomValidationException("Request body did not fulfill the neccesary validation requirements");
             }
+
+            //foreach (var failure in result.Errors)
+            //{
+            //    Console.WriteLine($"Property: {failure.PropertyName} Error Code: {failure.ErrorCode}");
+            //}
+
+
 
             var httpContext = userHttpContext;
             var jwt = httpContext.Request.Headers["Authorization"];
@@ -74,7 +81,7 @@ namespace Sundown2._0.Services
         }
 
 
-        public MissionReport GetById(int id)
+        public MissionReport GetById(Guid id)
         {
             
             var missionreport = _context.MissionReports.SingleOrDefault(x => x.MissionReportId == id);
@@ -88,7 +95,7 @@ namespace Sundown2._0.Services
         }
 
 
-        public MissionReport Update(MissionReportDTO model, int id)
+        public MissionReport Update(MissionReportDTO model, Guid id)
         {
             ValidationResult result = _validator.Validate(model);
 
@@ -118,7 +125,7 @@ namespace Sundown2._0.Services
         }
 
 
-        public MissionReport Delete(int id)
+        public MissionReport Delete(Guid id)
         {
 
             var reportToDelete = _context.MissionReports.Find(id);

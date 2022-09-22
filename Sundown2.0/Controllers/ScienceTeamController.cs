@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Sundown2._0.Services;
+using System;
 
 namespace Sundown2._0.Controllers
 {
@@ -29,7 +30,7 @@ namespace Sundown2._0.Controllers
 
         
         [HttpGet("getReportById/{id}")]
-        public IActionResult GetReportById(int id)
+        public IActionResult GetReportById(Guid id)
         {
             var response = _missionReportService.GetById(id);
 
@@ -47,7 +48,7 @@ namespace Sundown2._0.Controllers
 
 
         [HttpGet("getImageById/{id}")]
-        public IActionResult GetImageById(int id)
+        public IActionResult GetImageById(Guid id)
         {
             var response = _missionImageService.GetById(id);
 

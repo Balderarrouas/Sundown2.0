@@ -231,10 +231,9 @@ namespace Sundown2._0.Migrations
 
             modelBuilder.Entity("Sundown2._0.Entities.MissionImage", b =>
                 {
-                    b.Property<int>("MissionImageId")
+                    b.Property<Guid>("MissionImageId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("CameraName")
                         .HasColumnType("nvarchar(max)");
@@ -248,11 +247,8 @@ namespace Sundown2._0.Migrations
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("MissionReportId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RoverId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("MissionReportId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("RoverName")
                         .HasColumnType("nvarchar(max)");
@@ -272,10 +268,9 @@ namespace Sundown2._0.Migrations
 
             modelBuilder.Entity("Sundown2._0.Entities.MissionReport", b =>
                 {
-                    b.Property<int>("MissionReportId")
+                    b.Property<Guid>("MissionReportId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("AstronautId")
                         .HasColumnType("int");
@@ -312,54 +307,6 @@ namespace Sundown2._0.Migrations
                     b.HasIndex("AstronautId");
 
                     b.ToTable("MissionReports");
-                });
-
-            modelBuilder.Entity("Sundown2._0.Models.SpaceStation", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<double>("Altitude")
-                        .HasColumnType("float");
-
-                    b.Property<double>("Daynum")
-                        .HasColumnType("float");
-
-                    b.Property<double>("Footprint")
-                        .HasColumnType("float");
-
-                    b.Property<double>("Latitude")
-                        .HasColumnType("float");
-
-                    b.Property<double>("Longitude")
-                        .HasColumnType("float");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("SolarLat")
-                        .HasColumnType("float");
-
-                    b.Property<double>("SolarLon")
-                        .HasColumnType("float");
-
-                    b.Property<int>("Timestamp")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Units")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("Velocity")
-                        .HasColumnType("float");
-
-                    b.Property<string>("Visibility")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("SpaceStations");
                 });
 
             modelBuilder.Entity("Sundown2._0.Entities.MissionImage", b =>

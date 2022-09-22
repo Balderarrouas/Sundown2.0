@@ -2,12 +2,13 @@
 using Microsoft.AspNetCore.Mvc;
 using Sundown2._0.Models;
 using Sundown2._0.Services;
+using System;
 
 namespace Sundown2._0.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class MissionImageController : ControllerBase
     {
 
@@ -39,7 +40,7 @@ namespace Sundown2._0.Controllers
 
 
         [HttpGet("getbyid/{id}")]
-        public IActionResult GetById(int id)
+        public IActionResult GetById(Guid id)
         {
             var response = _missionImageService.GetById(id);
 
@@ -48,7 +49,7 @@ namespace Sundown2._0.Controllers
 
         
         [HttpPut("update/{id}")]
-        public IActionResult Update([FromForm]MissionImageDTO model, int id)
+        public IActionResult Update([FromForm]MissionImageDTO model, Guid id)
         {
             var response = _missionImageService.Update(model, id);
 
@@ -57,7 +58,7 @@ namespace Sundown2._0.Controllers
 
         
         [HttpDelete("delete/{id}")]
-        public IActionResult Delete(int id)
+        public IActionResult Delete(Guid id)
         {
             var response = _missionImageService.Delete(id);
 

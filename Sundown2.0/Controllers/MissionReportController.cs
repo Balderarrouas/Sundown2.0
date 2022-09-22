@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Sundown2._0.Models;
 using Sundown2._0.Services;
+using System;
 using System.Linq;
 using System.Security.Claims;
 
@@ -26,7 +27,7 @@ namespace Sundown2._0.Controllers
         }
 
 
-        [AllowAnonymous]
+        
         [HttpPost("create")]
         public IActionResult Create(MissionReportDTO model)
         {
@@ -47,7 +48,7 @@ namespace Sundown2._0.Controllers
 
         
         [HttpGet("getbyid/{id}")]
-        public IActionResult GetById(int id)
+        public IActionResult GetById(Guid id)
         {
             var response = _missionReportService.GetById(id);
 
@@ -56,7 +57,7 @@ namespace Sundown2._0.Controllers
 
 
         [HttpPut("update/{id}")]
-        public IActionResult Update(MissionReportDTO model, int id)
+        public IActionResult Update(MissionReportDTO model, Guid id)
         {          
 
             var response = _missionReportService.Update(model, id);
@@ -66,7 +67,7 @@ namespace Sundown2._0.Controllers
 
 
         [HttpDelete("delete/{id}")]
-        public IActionResult Delete(int id)
+        public IActionResult Delete(Guid id)
         {
             var response =  _missionReportService.Delete(id);
 

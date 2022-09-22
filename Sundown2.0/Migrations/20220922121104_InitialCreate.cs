@@ -60,35 +60,10 @@ namespace Sundown2._0.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SpaceStations",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Latitude = table.Column<double>(type: "float", nullable: false),
-                    Longitude = table.Column<double>(type: "float", nullable: false),
-                    Altitude = table.Column<double>(type: "float", nullable: false),
-                    Velocity = table.Column<double>(type: "float", nullable: false),
-                    Visibility = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Footprint = table.Column<double>(type: "float", nullable: false),
-                    Timestamp = table.Column<int>(type: "int", nullable: false),
-                    Daynum = table.Column<double>(type: "float", nullable: false),
-                    SolarLat = table.Column<double>(type: "float", nullable: false),
-                    SolarLon = table.Column<double>(type: "float", nullable: false),
-                    Units = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SpaceStations", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "MissionReports",
                 columns: table => new
                 {
-                    MissionReportId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    MissionReportId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Latitude = table.Column<double>(type: "float", nullable: false),
@@ -115,17 +90,15 @@ namespace Sundown2._0.Migrations
                 name: "MissionImages",
                 columns: table => new
                 {
-                    MissionImageId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    MissionImageId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CameraName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RoverName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    RoverId = table.Column<int>(type: "int", nullable: false),
                     RoverStatus = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    MissionReportId = table.Column<int>(type: "int", nullable: false)
+                    MissionReportId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -186,9 +159,6 @@ namespace Sundown2._0.Migrations
 
             migrationBuilder.DropTable(
                 name: "MissionImages");
-
-            migrationBuilder.DropTable(
-                name: "SpaceStations");
 
             migrationBuilder.DropTable(
                 name: "MissionReports");

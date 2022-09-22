@@ -18,6 +18,7 @@ using System.IO;
 using Sundown2._0.ExceptionHandling;
 using FluentValidation;
 using Sundown2._0.Models;
+using Sundown2._0.Validators;
 
 namespace Sundown2._0
 {

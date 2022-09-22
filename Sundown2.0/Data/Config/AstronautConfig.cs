@@ -9,7 +9,7 @@ namespace Sundown2._0.Data.Config
         
         public void Configure(EntityTypeBuilder<Astronaut> builder)
         {
-
+            //builder.HasKey(astronaut => astronaut.AstronautId);
             // builder.HasQueryFilter(x => x.DeletedAt = null);
             builder.HasData(
                     new Astronaut

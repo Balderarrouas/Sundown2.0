@@ -7,8 +7,8 @@ namespace Sundown2._0.Entities
 {
     public class MissionReport
     {
-        [Key]        
-        public int MissionReportId { get; set; }
+        [Key]
+        public Guid MissionReportId { get; } = Guid.NewGuid();
         public string Name { get; set; }
         public string Description { get; set; }
         public double Latitude { get; set; }

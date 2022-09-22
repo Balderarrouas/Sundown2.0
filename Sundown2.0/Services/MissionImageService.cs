@@ -18,9 +18,9 @@ namespace Sundown2._0.Services
     {
         MissionImage Create(MissionImageDTO model);
         List<MissionImage> GetAll();
-        MissionImage GetById(int id);
-        MissionImage Update(MissionImageDTO model, int id);
-        MissionImage Delete(int id);
+        MissionImage GetById(Guid id);
+        MissionImage Update(MissionImageDTO model, Guid id);
+        MissionImage Delete(Guid id);
     }
 
 
@@ -80,7 +80,7 @@ namespace Sundown2._0.Services
 
 
 
-        public MissionImage GetById(int id)
+        public MissionImage GetById(Guid id)
         {
             var missionImage = _context.MissionImages.FirstOrDefault(x => x.MissionImageId == id);
 
@@ -93,7 +93,7 @@ namespace Sundown2._0.Services
         }
 
 
-        public MissionImage Update(MissionImageDTO model, int id)
+        public MissionImage Update(MissionImageDTO model, Guid id)
         {
             ValidationResult result = _validator.Validate(model);
 
@@ -116,7 +116,6 @@ namespace Sundown2._0.Services
             }
             imageToUpdate.CameraName = model.CameraName;
             imageToUpdate.RoverName = model.RoverName;
-            imageToUpdate.RoverId = model.RoverId;
             imageToUpdate.RoverStatus = model.RoverStatus;
             imageToUpdate.Image = filePath;
             imageToUpdate.MissionReportId = model.MissionReportId;
@@ -129,7 +128,7 @@ namespace Sundown2._0.Services
         }
 
 
-        public MissionImage Delete(int id)
+        public MissionImage Delete(Guid id)
         {
             var imageToDelete = _context.MissionImages.Find(id);
 
