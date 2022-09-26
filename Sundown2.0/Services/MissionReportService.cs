@@ -53,14 +53,7 @@ namespace Sundown2._0.Services
             {
                 throw new CustomValidationException("Request body did not fulfill the neccesary validation requirements");
             }
-
-            //foreach (var failure in result.Errors)
-            //{
-            //    Console.WriteLine($"Property: {failure.PropertyName} Error Code: {failure.ErrorCode}");
-            //}
-
-
-
+            
             var httpContext = userHttpContext;
             var jwt = httpContext.Request.Headers["Authorization"];
             var userIdString = httpContext.User?.Claims.First(x => x.Type == ClaimTypes.UserData).Value;
@@ -87,8 +80,8 @@ namespace Sundown2._0.Services
 
         public MissionReport GetById(Guid id)
         {
-            
-            var missionreport = _context.MissionReports.SingleOrDefault(x => x.MissionReportId == id);
+            var fakeId = Guid.NewGuid();
+            var missionreport = _context.MissionReports.SingleOrDefault(x => x.MissionReportId == fakeId);
 
             if (missionreport == null)
             {

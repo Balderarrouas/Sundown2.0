@@ -23,6 +23,7 @@ namespace Sundown2._0.Services
 
     public class SpaceStationService : ISpaceStationService
     {
+
         private Uri BaseAddress = new Uri("https://api.wheretheiss.at/");
         private HttpClient _httpClient;
         private ApplicationDbContext _applicationDbContext;
@@ -39,8 +40,10 @@ namespace Sundown2._0.Services
 
         public async Task<ClosestLandingFacility> Get()
         {
-            
+            // get current unix timestamp
             long unixTimestamp = ConvertDatetimeToUnixTimeStamp(DateTime.UtcNow);
+
+            // call the iss api to get the current location
             string APIURL = $"v1/satellites/25544/positions?timestamps={unixTimestamp}";
             var response = await _httpClient.GetAsync(APIURL);
 
@@ -56,6 +59,7 @@ namespace Sundown2._0.Services
             var spaceStation = spaceStationList.First();
 
 
+            // create GeoCoordinates for the iss and the landing facilities
             var issCoord = new GeoCoordinate(spaceStation.Latitude, spaceStation.Longitude);
                                              
             var europeCoord = new GeoCoordinate(55.68474022214539, 12.50971483525464);
@@ -66,7 +70,7 @@ namespace Sundown2._0.Services
             var indiaCoord = new GeoCoordinate(19.330540162912126, 79.14236662251713);
             var argentinaCoord = new GeoCoordinate(-34.050351176517886, -65.92682965568743);
 
-
+            // create dictionary with distances from the iss to all landing facilities
             Dictionary<string, double> distanceDict = new Dictionary<string, double>();
 
             distanceDict.Add("Europe", issCoord.GetDistanceTo(europeCoord));
@@ -77,28 +81,27 @@ namespace Sundown2._0.Services
             distanceDict.Add("India", issCoord.GetDistanceTo(americaCoord));
             distanceDict.Add("Argentina", issCoord.GetDistanceTo(argentinaCoord));
 
+            // find minimum distance value in dictionary and create ClosestLandingFacility obj
+            var shortestDistance = distanceDict.MinBy(kvp => kvp.Value);
+            ClosestLandingFacility closestLandingSite = new ClosestLandingFacility(shortestDistance.First().Key, shortestDistance.First().Value);
+
             var landingSites = _applicationDbContext.LandingFacilities.ToList();
-
-            var closestLanding = distanceDict.MinBy(kvp => kvp.Value);
-
-            ClosestLandingFacility currentClosestLandingSite = new ClosestLandingFacility(closestLanding.First().Key, closestLanding.First().Value);
-            
             foreach (var landingSiteItems in landingSites)
             {
-                if (landingSiteItems.Name == currentClosestLandingSite.CountryName)
+                if (landingSiteItems.Name == closestLandingSite.CountryName)
                 {
-                    currentClosestLandingSite.Latitude = landingSiteItems.Latitude;
-                    currentClosestLandingSite.Longitude = landingSiteItems.Longitude;
+                    closestLandingSite.Latitude = landingSiteItems.Latitude;
+                    closestLandingSite.Longitude = landingSiteItems.Longitude;
+                    closestLandingSite.CreatedAt = DateTime.UtcNow;
+
+                    _applicationDbContext.Add(closestLandingSite);
+                    _applicationDbContext.SaveChanges();
+
+                    return closestLandingSite;
                 }
             }
 
-            currentClosestLandingSite.CreatedAt = DateTime.UtcNow;
-
-            _applicationDbContext.Add(currentClosestLandingSite);
-            _applicationDbContext.SaveChanges();
-
-
-            return currentClosestLandingSite;
+            return null;
          }
 
         // Helper Methods 

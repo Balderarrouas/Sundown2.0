@@ -51,27 +51,27 @@ namespace Sundown2._0.Services
             var weatherForecast = JsonSerializer.Deserialize<WaetherForecast>(jsonResult);
 
             // Sortere items fra timeseries by air_temp fra lavest til højest(default for .OrderBy)
+            // Looper items
+            // Parser hvert items tid(fordi det er en string) til DateTimeOffset. out bruges til at få timeOfItem ud istedet for en boolean da TryParse ellers ville give true/false
+            // For at bruge Compare metoden skal vi bruge noget at sammenligne med, udgangspunktet er nu og sammenligningspunktet er 24 timer ude i fremtiden (DateTimeOffset.now.AddHours(24))
+            // Compare giver en int som representere om det er før, nu eller senere (-1,0,1) Derfor skal timeOffItem være før eller ens ift et døgn fremme
+            // laver et objekt af LandingTime og sætter properties til de rigtige værdier
+
             var timeseriesList = weatherForecast.properties.timeseries.OrderBy(timeseriesItem => timeseriesItem.data.instant.details.air_temperature);
 
             if (timeseriesList.Count() == 0)
             {
                 throw new CustomApplicationException("No items added to timeseriesList");
             }
-
-            // Looper items
+            
             foreach (var item in timeseriesList)
-            {
-                // Parser hvert items tid(fordi det er en string) til DateTimeOffset. out bruges til at få timeOfItem ud istedet for en boolean da TryParse ellers ville give true/false
+            {                
                 if (DateTimeOffset.TryParse(item.time, out DateTimeOffset timeOfItem)) 
-                {
-                   
-                    // For at bruge Compare metoden skal vi bruge noget at sammenligne med, udgangspunktet er nu og sammenligningspunktet er 24 timer ude i fremtiden (DateTimeOffset.now.AddHours(24))
+                {                   
                     var oneDayFromNow = DateTimeOffset.Now.AddHours(24);
                    
-                    // Compare giver en int som representere om det er før, nu eller senere (-1,0,1) Derfor skal timeOffItem være før eller ens ift et døgn fremme
                     if(DateTimeOffset.Compare(timeOfItem, oneDayFromNow) <= 0)
                     {
-                        // laver et objekt af LandingTime og sætter properties til de rigtige værdier
                         var landingTime = new LandingTime(timeOfItem, item.data.instant.details.air_temperature, closestLandingSite);
                        
                         return landingTime;
