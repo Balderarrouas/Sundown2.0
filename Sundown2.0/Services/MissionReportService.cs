@@ -73,15 +73,16 @@ namespace Sundown2._0.Services
 
 
         public async Task<List<MissionReport>> GetAll()
-        {            
+        {          
+            
             return _context.MissionReports.ToList();
         }
 
 
         public MissionReport GetById(Guid id)
         {
-            var fakeId = Guid.NewGuid();
-            var missionreport = _context.MissionReports.SingleOrDefault(x => x.MissionReportId == fakeId);
+            //var fakeId = Guid.NewGuid();
+            var missionreport = _context.MissionReports.SingleOrDefault(x => x.MissionReportId == id);
 
             if (missionreport == null)
             {

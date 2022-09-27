@@ -18,7 +18,7 @@ namespace Sundown2._0.Services
 
         public async Task Invoke()
         {
-            await _spaceStationService.Get();
+            await _spaceStationService.DetermineClosestLanding();
         }
 
 

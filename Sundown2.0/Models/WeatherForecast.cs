@@ -2,7 +2,7 @@
 
 namespace Sundown2._0.Models
 {
-    public class WaetherForecast
+    public class WeatherForecast
     {
 
         public string type { get; set; }

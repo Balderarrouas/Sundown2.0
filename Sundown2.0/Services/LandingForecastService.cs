@@ -13,15 +13,15 @@ namespace Sundown2._0.Services
 {
     public interface ILandingForecastService
     {
-        Task<LandingTime> Get();
+        Task<LandingTime> DetermineTimeOfLanding();
     }
 
     public class LandingForecastService : ILandingForecastService
     {
 
         private readonly ISpaceStationService _spaceStationService;
-        private Uri BaseAddress = new Uri("https://api.met.no/");
-        private HttpClient _httpClient;
+        private readonly Uri BaseAddress = new Uri("https://api.met.no/");
+        private readonly HttpClient _httpClient;
 
 
         public LandingForecastService(HttpClient httpClient, ISpaceStationService spaceStationService)          
@@ -32,10 +32,10 @@ namespace Sundown2._0.Services
         }
 
 
-        public async Task<LandingTime> Get()
+
+        public async Task<IOrderedEnumerable<TimeseriesItem>> GetWeatherForeCast()
         {
-            
-            var closestLandingSite = await _spaceStationService.Get();
+            var closestLandingSite = await _spaceStationService.DetermineClosestLanding();
             var landingLat = closestLandingSite.Latitude.ToString(CultureInfo.CreateSpecificCulture("en-us"));
             var landingLon = closestLandingSite.Longitude.ToString(CultureInfo.CreateSpecificCulture("en-us"));
 
@@ -46,18 +46,21 @@ namespace Sundown2._0.Services
             {
                 throw new CustomFetchFromApiException($"{BaseAddress}{APIURL} returned {response.StatusCode}");
             }
-            
+
             var jsonResult = await response.Content.ReadAsStringAsync();
-            var weatherForecast = JsonSerializer.Deserialize<WaetherForecast>(jsonResult);
-
-            // Sortere items fra timeseries by air_temp fra lavest til højest(default for .OrderBy)
-            // Looper items
-            // Parser hvert items tid(fordi det er en string) til DateTimeOffset. out bruges til at få timeOfItem ud istedet for en boolean da TryParse ellers ville give true/false
-            // For at bruge Compare metoden skal vi bruge noget at sammenligne med, udgangspunktet er nu og sammenligningspunktet er 24 timer ude i fremtiden (DateTimeOffset.now.AddHours(24))
-            // Compare giver en int som representere om det er før, nu eller senere (-1,0,1) Derfor skal timeOffItem være før eller ens ift et døgn fremme
-            // laver et objekt af LandingTime og sætter properties til de rigtige værdier
-
+            var weatherForecast = JsonSerializer.Deserialize<WeatherForecast>(jsonResult);
             var timeseriesList = weatherForecast.properties.timeseries.OrderBy(timeseriesItem => timeseriesItem.data.instant.details.air_temperature);
+
+            return timeseriesList;
+        }
+
+
+        public async Task<LandingTime> DetermineTimeOfLanding()
+        {
+
+            var timeseriesList = await GetWeatherForeCast();
+            var closestLandingSite = await _spaceStationService.DetermineClosestLanding();
+
 
             if (timeseriesList.Count() == 0)
             {
@@ -72,13 +75,16 @@ namespace Sundown2._0.Services
                    
                     if(DateTimeOffset.Compare(timeOfItem, oneDayFromNow) <= 0)
                     {
-                        var landingTime = new LandingTime(timeOfItem, item.data.instant.details.air_temperature, closestLandingSite);
+                        var timeOfLanding = new LandingTime(timeOfItem, item.data.instant.details.air_temperature, closestLandingSite);
                        
-                        return landingTime;
+                        return timeOfLanding;
                     }                    
                 }
             }                                 
             return null;
         }
+
+       
+
     }
 }

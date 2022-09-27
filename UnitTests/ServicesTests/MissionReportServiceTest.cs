@@ -32,6 +32,23 @@ namespace UnitTests.ServicesTests
             Assert.Throws<CustomNotFoundException>(() => mock.Object.GetById(id));
             
         }
+         
+        //[Fact]
+        //public void GelAll_Should_Return_List_Of_Reports()
+        //{
+        //    // arrange
+        //    var mock = new Mock<IMissionReportService>();
+
+        //    mock.Setup(x => x.GetAll());
+
+        //    // act
+        //    var list = mock.Object.GetAll();
+
+        //    // assert 
+        //    Assert.NotNull(list);
+            
+
+        //}
 
 
         

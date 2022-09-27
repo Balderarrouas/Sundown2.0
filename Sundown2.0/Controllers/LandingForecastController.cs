@@ -26,7 +26,9 @@ namespace Sundown2._0.Controllers
         [HttpGet]
         public async Task<ActionResult<LandingTime>> Get()
         {
-            var result = await _landingForecastService.Get();
+
+
+            var result = await _landingForecastService.DetermineTimeOfLanding();
 
             return Ok(result);
         }

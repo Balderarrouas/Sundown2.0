@@ -19,6 +19,7 @@ using Sundown2._0.ExceptionHandling;
 using FluentValidation;
 using Sundown2._0.Models;
 using Sundown2._0.Validators;
+using Sundown2._0.Utils;
 
 namespace Sundown2._0
 {
@@ -47,6 +48,7 @@ namespace Sundown2._0
             services.AddTransient<IMissionReportService, MissionReportService>();
             services.AddTransient<IMissionImageService, MissionImageService>();
             services.AddTransient<SaveEveryFiveMinutes>();
+            services.AddTransient<SpaceStationUtils>();
             //services.AddScoped<IValidator<MissionReportDTO>, MissionReportDTOValidator>();
             services.AddValidatorsFromAssemblyContaining<MissionReportDTOValidator>();
             services.AddScheduler();

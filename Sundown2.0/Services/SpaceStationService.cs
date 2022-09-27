@@ -4,6 +4,7 @@ using Sundown2._0.Data;
 using Sundown2._0.Entities;
 using Sundown2._0.ExceptionHandling.Exceptions;
 using Sundown2._0.Models;
+using Sundown2._0.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,28 +18,30 @@ namespace Sundown2._0.Services
 {
     public interface ISpaceStationService
     {
-        Task<ClosestLandingFacility> Get();
+        Task<ClosestLandingFacility> DetermineClosestLanding();
+        Task<SpaceStation> GetIssLocation();
     }
 
 
     public class SpaceStationService : ISpaceStationService
     {
 
-        private Uri BaseAddress = new Uri("https://api.wheretheiss.at/");
-        private HttpClient _httpClient;
-        private ApplicationDbContext _applicationDbContext;
+        private readonly Uri BaseAddress = new Uri("https://api.wheretheiss.at/");
+        private readonly HttpClient _httpClient;
+        private readonly ApplicationDbContext _applicationDbContext;
+        private readonly SpaceStationUtils _spaceStationUtils;
         
 
-        public SpaceStationService(HttpClient httpClient, ApplicationDbContext context)
+        public SpaceStationService(HttpClient httpClient, ApplicationDbContext context, SpaceStationUtils spaceStationUtils
+            )
         {
             _httpClient = httpClient;
             _httpClient.BaseAddress = BaseAddress;
             _applicationDbContext = context;
+            _spaceStationUtils = spaceStationUtils;
         }
 
-        
-
-        public async Task<ClosestLandingFacility> Get()
+        public async Task<SpaceStation> GetIssLocation()
         {
             // get current unix timestamp
             long unixTimestamp = ConvertDatetimeToUnixTimeStamp(DateTime.UtcNow);
@@ -52,40 +55,25 @@ namespace Sundown2._0.Services
                 throw new CustomFetchFromApiException($"{BaseAddress}{APIURL} returned {response.StatusCode}");
             }
 
-            var jsonResult = await response.Content.ReadAsStringAsync();           
+            var jsonResult = await response.Content.ReadAsStringAsync();
 
             // Deserialize jsonResult
             var spaceStationList = JsonSerializer.Deserialize<List<SpaceStation>>(jsonResult);
             var spaceStation = spaceStationList.First();
 
+            return spaceStation;
+        }
 
-            // create GeoCoordinates for the iss and the landing facilities
-            var issCoord = new GeoCoordinate(spaceStation.Latitude, spaceStation.Longitude);
-                                             
-            var europeCoord = new GeoCoordinate(55.68474022214539, 12.50971483525464);
-            var chinaCoord = new GeoCoordinate(41.14962602664463, 119.33727554032843);
-            var americaCoord = new GeoCoordinate(40.014407426017335, -103.68329704730307);
-            var africaCoord = new GeoCoordinate(-21.02973667221353, 23.77076788325546);
-            var australiaCoord = new GeoCoordinate(-33.00702098732439, 117.83314818861444);
-            var indiaCoord = new GeoCoordinate(19.330540162912126, 79.14236662251713);
-            var argentinaCoord = new GeoCoordinate(-34.050351176517886, -65.92682965568743);
+        public async Task<ClosestLandingFacility> DetermineClosestLanding()
+        {            
+            var iss = await GetIssLocation();
 
-            // create dictionary with distances from the iss to all landing facilities
-            Dictionary<string, double> distanceDict = new Dictionary<string, double>();
+            var distanceDict = _spaceStationUtils.CreateCoordinateDictionary(iss);
 
-            distanceDict.Add("Europe", issCoord.GetDistanceTo(europeCoord));
-            distanceDict.Add("China", issCoord.GetDistanceTo(chinaCoord));
-            distanceDict.Add("America", issCoord.GetDistanceTo(americaCoord));
-            distanceDict.Add("Africa", issCoord.GetDistanceTo(africaCoord));
-            distanceDict.Add("Australia", issCoord.GetDistanceTo(australiaCoord));
-            distanceDict.Add("India", issCoord.GetDistanceTo(americaCoord));
-            distanceDict.Add("Argentina", issCoord.GetDistanceTo(argentinaCoord));
-
-            // find minimum distance value in dictionary and create ClosestLandingFacility obj
-            var shortestDistance = distanceDict.MinBy(kvp => kvp.Value);
-            ClosestLandingFacility closestLandingSite = new ClosestLandingFacility(shortestDistance.First().Key, shortestDistance.First().Value);
+            var closestLandingSite = _spaceStationUtils.SortDictionary(distanceDict);
 
             var landingSites = _applicationDbContext.LandingFacilities.ToList();
+
             foreach (var landingSiteItems in landingSites)
             {
                 if (landingSiteItems.Name == closestLandingSite.CountryName)
@@ -100,9 +88,11 @@ namespace Sundown2._0.Services
                     return closestLandingSite;
                 }
             }
-
             return null;
          }
+
+
+
 
         // Helper Methods 
         public static long ConvertDatetimeToUnixTimeStamp(DateTime date)
@@ -112,6 +102,9 @@ namespace Sundown2._0.Services
 
             return unixDateTime;
         }
+
+
+
 
 
     }

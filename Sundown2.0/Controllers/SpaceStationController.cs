@@ -24,7 +24,7 @@ namespace Sundown2._0.Controllers
         [HttpGet]
         public async Task<ActionResult<ClosestLandingFacility>> Get()
         {
-            var result = await _spaceStationService.Get();
+            var result = await _spaceStationService.DetermineClosestLanding();
 
             return Ok(result);
         }
