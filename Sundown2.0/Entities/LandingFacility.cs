@@ -12,6 +12,7 @@ namespace Sundown2._0.Entities
         public double Latitude { get; set; }
         public double Longitude { get; set; }
         public double DistanceToISS { get; set; }
+        
 
     }
 }

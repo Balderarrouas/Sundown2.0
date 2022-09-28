@@ -21,6 +21,14 @@ namespace Sundown2._0.Entities
             CountryName = countryName;
             CurrentDistanceInMeters = currentDistanceInMeters;
         }
+
+        public ClosestLandingFacility(string countryName, double currentDistanceInMeters, double latitude, double longitude)
+        {
+            CountryName = countryName;
+            CurrentDistanceInMeters = currentDistanceInMeters;
+            Latitude = latitude;
+            Longitude = longitude;
+        }
     }
 
     

@@ -10,7 +10,7 @@ namespace Sundown2._0.Data.Config
         public void Configure(EntityTypeBuilder<MissionReport> builder)
         {
             builder.HasKey(missionReport => missionReport.MissionReportId);
-           //builder.HasQueryFilter(x => x.DeletedAt = null);
+            builder.HasQueryFilter(x => x.DeletedAt == null);
         }
     }
 }

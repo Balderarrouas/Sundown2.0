@@ -57,11 +57,11 @@ namespace Sundown2._0.Services
             }
             var user = _context.Astronauts.SingleOrDefault(x => x.Username == model.Username && x.Password == model.Password);
 
-            // return null if user not found
+            
             if (user == null)
             {
                 throw new CustomNotFoundException("Username or password is incorrect");
-             // return null;
+             
             }
                 
 

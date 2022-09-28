@@ -10,7 +10,7 @@ using Sundown2._0.Data;
 namespace Sundown2._0.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220922121104_InitialCreate")]
+    [Migration("20220928090817_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

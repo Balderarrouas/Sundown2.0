@@ -9,8 +9,7 @@ namespace Sundown2._0.Data.Config
         
         public void Configure(EntityTypeBuilder<Astronaut> builder)
         {
-            //builder.HasKey(astronaut => astronaut.AstronautId);
-            // builder.HasQueryFilter(x => x.DeletedAt = null);
+            
             builder.HasData(
                     new Astronaut
                     {
@@ -21,7 +20,7 @@ namespace Sundown2._0.Data.Config
                         Username = "yuga",
                         Email = "yuga@mtr.moon",
                         Password = "ucJa3b1m3QCZvHM67PqYNTjKrqm6xJ01C/cXXSlvcRM=:eNJJotJygM5lfRT7VsnM5w==",
-                        Avatar = "C:\\Users\balde\\source\\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Yuga.jpg"                       
+                        Avatar = "C:\\Users\\balde\\source\\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Yuga.jpg"                       
                     },
                      new Astronaut
                      {

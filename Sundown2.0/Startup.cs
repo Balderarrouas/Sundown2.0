@@ -37,8 +37,6 @@ namespace Sundown2._0
         {
             
             services.AddControllers();
-            // Format til at tilføje en service
-            // services.AddTransient<IServiceNavn, ServiceNavn>;
             services.AddTransient<ISpaceStationService, SpaceStationService>();
             services.AddTransient<ILandingForecastService, LandingForecastService>();
             services.AddTransient<IUserService, UserService>();
@@ -49,7 +47,6 @@ namespace Sundown2._0
             services.AddTransient<IMissionImageService, MissionImageService>();
             services.AddTransient<SaveEveryFiveMinutes>();
             services.AddTransient<SpaceStationUtils>();
-            //services.AddScoped<IValidator<MissionReportDTO>, MissionReportDTOValidator>();
             services.AddValidatorsFromAssemblyContaining<MissionReportDTOValidator>();
             services.AddScheduler();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

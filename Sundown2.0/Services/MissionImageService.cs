@@ -136,7 +136,7 @@ namespace Sundown2._0.Services
             {
                 throw new CustomNotFoundException($"missionImage with {id} could not be found");
             }
-            _context.MissionImages.Remove(imageToDelete);
+            imageToDelete.DeletedAt = DateTime.UtcNow;
             _context.SaveChanges();
 
             return imageToDelete;

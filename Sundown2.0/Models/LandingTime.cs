@@ -12,11 +12,17 @@ namespace Sundown2._0.Models
         public double LowestLandingTemp { get; set; }
         public ClosestLandingFacility ClosestLandingFacility { get; set; }
 
-
-        public LandingTime(DateTimeOffset bestLandingTime, double lowestLandingTemp, ClosestLandingFacility closest)
+        public LandingTime(DateTimeOffset bestLandingTime, double lowestLandingTemp)
         {
             BestLandingTime = bestLandingTime;
             LowestLandingTemp = lowestLandingTemp;
+            
+        }
+
+        public LandingTime(LandingTime landingTime, ClosestLandingFacility closest)
+        {
+            BestLandingTime = landingTime.BestLandingTime;
+            LowestLandingTemp = landingTime.LowestLandingTemp;
             ClosestLandingFacility = closest;
         }
     }

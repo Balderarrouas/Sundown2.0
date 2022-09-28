@@ -13,6 +13,8 @@ namespace Sundown2._0.Data.Config
         public void Configure(EntityTypeBuilder<MissionImage> builder)
         {
             builder.HasKey(missionImage => missionImage.MissionImageId);
+            builder.HasQueryFilter(x => x.DeletedAt == null);
+
         }
     }
 }

@@ -132,7 +132,7 @@ namespace Sundown2._0.Services
             {
                 throw new CustomNotFoundException($"missionreport with {id} could not be found");
             }
-            _context.MissionReports.Remove(reportToDelete);
+            reportToDelete.DeletedAt = DateTime.UtcNow;
             _context.SaveChanges();
             
             return reportToDelete;
