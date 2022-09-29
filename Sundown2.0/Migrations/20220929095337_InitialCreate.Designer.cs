@@ -10,7 +10,7 @@ using Sundown2._0.Data;
 namespace Sundown2._0.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220929085701_InitialCreate")]
+    [Migration("20220929095337_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -68,7 +68,7 @@ namespace Sundown2._0.Migrations
                     b.HasData(
                         new
                         {
-                            AstronautId = new Guid("d209ab46-a03b-47d7-a4b6-348c62f7e18a"),
+                            AstronautId = new Guid("8c0e2924-e290-4cd3-a7eb-d360a6a51fbc"),
                             Avatar = "C:\\Users\\balde\\source\\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Yuga.jpg",
                             CodeName = "First Man",
                             Email = "yuga@mtr.moon",
@@ -79,7 +79,7 @@ namespace Sundown2._0.Migrations
                         },
                         new
                         {
-                            AstronautId = new Guid("fad20788-1ebd-4ce6-a133-42eb34237d15"),
+                            AstronautId = new Guid("3be03faa-9c78-4d3b-bc08-8c3c89bac208"),
                             Avatar = "C:\\Users\\balde\\source\\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Alsh.jpg",
                             CodeName = "Shepard",
                             Email = "alsh@mtr.moon",
@@ -90,7 +90,7 @@ namespace Sundown2._0.Migrations
                         },
                         new
                         {
-                            AstronautId = new Guid("f4b917ea-9102-41cc-9a11-eed91af2119b"),
+                            AstronautId = new Guid("9e70fddc-0693-4c38-be13-3f6a9681f2ec"),
                             Avatar = "C:\\Users\\balde\\source\\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Vate.jpg",
                             CodeName = "Valentine",
                             Email = "vate@mtr.moon",
@@ -101,7 +101,7 @@ namespace Sundown2._0.Migrations
                         },
                         new
                         {
-                            AstronautId = new Guid("de7ae37e-a55c-42f4-8a54-d6df16488710"),
+                            AstronautId = new Guid("c37140b0-fd12-4867-9868-03f82ccba040"),
                             Avatar = "C:\\Users\\balde\\source\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Gubl.jpg",
                             CodeName = "bluey",
                             Email = "gubi@mtr.moon",
@@ -112,7 +112,7 @@ namespace Sundown2._0.Migrations
                         },
                         new
                         {
-                            AstronautId = new Guid("527b65e7-35f6-4f1f-adab-0a6233091a19"),
+                            AstronautId = new Guid("f8928099-a389-467d-93ee-32be7c14f62b"),
                             Avatar = "C:\\Users\\balde\\source\\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Anmo.jpg",
                             CodeName = "Great Dane",
                             Email = "anmo@mtr.moon",
@@ -123,7 +123,7 @@ namespace Sundown2._0.Migrations
                         },
                         new
                         {
-                            AstronautId = new Guid("b1c9bcfb-ac17-42db-924d-062c755aa474"),
+                            AstronautId = new Guid("95cef011-8395-4876-a8dc-b3d542137d6d"),
                             Avatar = "C:\\Users\\balde\\source\\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Yiso.jpeg",
                             CodeName = "Neon",
                             Email = "yiso@mtr.moon",
@@ -169,10 +169,9 @@ namespace Sundown2._0.Migrations
 
             modelBuilder.Entity("Sundown2._0.Entities.LandingFacility", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("datetime2");
@@ -199,7 +198,7 @@ namespace Sundown2._0.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1,
+                            Id = new Guid("e378f454-0793-46e6-824c-2e8aae7190bb"),
                             DistanceToISS = 0.0,
                             Latitude = 55.684740222145393,
                             Longitude = 12.509714835254639,
@@ -207,7 +206,7 @@ namespace Sundown2._0.Migrations
                         },
                         new
                         {
-                            Id = 2,
+                            Id = new Guid("f090f415-9d6d-45c6-8b83-9ccb77d6e114"),
                             DistanceToISS = 0.0,
                             Latitude = 41.149626026644633,
                             Longitude = 119.33727554032843,
@@ -215,7 +214,7 @@ namespace Sundown2._0.Migrations
                         },
                         new
                         {
-                            Id = 3,
+                            Id = new Guid("25e4a43b-7e7e-423c-982b-f01017547f5d"),
                             DistanceToISS = 0.0,
                             Latitude = 40.014407426017335,
                             Longitude = -103.68329704730307,
@@ -223,7 +222,7 @@ namespace Sundown2._0.Migrations
                         },
                         new
                         {
-                            Id = 4,
+                            Id = new Guid("970a3da5-99a8-48ee-b7ac-06844a5616d0"),
                             DistanceToISS = 0.0,
                             Latitude = -21.029736672213531,
                             Longitude = 23.770767883255459,
@@ -231,7 +230,7 @@ namespace Sundown2._0.Migrations
                         },
                         new
                         {
-                            Id = 5,
+                            Id = new Guid("c3085e3f-8797-4256-8aaa-7d541726fcd0"),
                             DistanceToISS = 0.0,
                             Latitude = -33.007020987324388,
                             Longitude = 117.83314818861444,
@@ -239,7 +238,7 @@ namespace Sundown2._0.Migrations
                         },
                         new
                         {
-                            Id = 6,
+                            Id = new Guid("fe78d56f-3413-4196-a532-46910fb297ef"),
                             DistanceToISS = 0.0,
                             Latitude = 19.330540162912126,
                             Longitude = 79.14236662251713,
@@ -247,7 +246,7 @@ namespace Sundown2._0.Migrations
                         },
                         new
                         {
-                            Id = 7,
+                            Id = new Guid("69fd5693-2ff6-4f5c-92bc-5c728f1920fe"),
                             DistanceToISS = 0.0,
                             Latitude = -34.050351176517886,
                             Longitude = -65.926829655687428,

@@ -1,18 +1,6 @@
-﻿using FluentAssertions;
-using GeoCoordinatePortable;
-using Moq;
-using MoreLinq;
-using Sundown2._0.Entities;
-using Sundown2._0.Models;
-using Sundown2._0.Services;
+﻿using Sundown2._0.Models;
 using Sundown2._0.Utils;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace UnitTests.UtilsTests

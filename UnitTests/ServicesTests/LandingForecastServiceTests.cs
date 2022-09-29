@@ -1,14 +1,8 @@
-﻿using Moq;
-using Sundown2._0.Entities;
+﻿using Sundown2._0.Entities;
 using Sundown2._0.Services;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace UnitTests.ServicesTests
@@ -40,8 +34,7 @@ namespace UnitTests.ServicesTests
             var timeOfLanding = await sut.DetermineTimeOfLanding(closest);
             var oneDayList = forecast.properties.timeseries.ToList();
             var newList = oneDayList.Take(24);
-            //var remove = oneDayList.Count - 24;
-            //oneDayList.RemoveRange(24, remove);
+            
 
             // assert
 

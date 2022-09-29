@@ -51,8 +51,7 @@ namespace Sundown2._0.Migrations
                 name: "LandingFacilities",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Latitude = table.Column<double>(type: "float", nullable: false),
                     Longitude = table.Column<double>(type: "float", nullable: false),
@@ -122,12 +121,12 @@ namespace Sundown2._0.Migrations
                 columns: new[] { "AstronautId", "Avatar", "CodeName", "CreatedAt", "DeletedAt", "Email", "FirstName", "LastName", "Password", "UpdatedAt", "Username" },
                 values: new object[,]
                 {
-                    { new Guid("d209ab46-a03b-47d7-a4b6-348c62f7e18a"), "C:\\Users\\balde\\source\\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Yuga.jpg", "First Man", null, null, "yuga@mtr.moon", "Yuri", "Gagarin", "ucJa3b1m3QCZvHM67PqYNTjKrqm6xJ01C/cXXSlvcRM=:eNJJotJygM5lfRT7VsnM5w==", null, "yuga" },
-                    { new Guid("fad20788-1ebd-4ce6-a133-42eb34237d15"), "C:\\Users\\balde\\source\\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Alsh.jpg", "Shepard", null, null, "alsh@mtr.moon", "Alan", "Shepard", "ITzi4V0MySnXMJA5WJu+p/zrjJ7v8F6JR//bUq7kzTM=:54+4rtMAB8384oiNiNCTDg==", null, "alsh" },
-                    { new Guid("f4b917ea-9102-41cc-9a11-eed91af2119b"), "C:\\Users\\balde\\source\\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Vate.jpg", "Valentine", null, null, "vate@mtr.moon", "Valentina", "Tereshkova", "F0RxBSmnVern/V/fHx4SNRMeZ+G6y/weNcBI37ONaSg=:/7FYNPQaAzjB+Qv7oTaXVw==", null, "vate" },
-                    { new Guid("de7ae37e-a55c-42f4-8a54-d6df16488710"), "C:\\Users\\balde\\source\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Gubl.jpg", "bluey", null, null, "gubi@mtr.moon", "Guion", "Bluford", "VHblRfxl4dZ2pPNtHWih3gAWtQKtRwa4rtvctzafJPo=:/mo5k7OFhrEkp6m+z0PNsA==", null, "gubl" },
-                    { new Guid("527b65e7-35f6-4f1f-adab-0a6233091a19"), "C:\\Users\\balde\\source\\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Anmo.jpg", "Great Dane", null, null, "anmo@mtr.moon", "Andreas", "Mogensen", "K2HIUcKqjvNUUoHSWczlnnSnR4s6gWZ1F4sqGexWQGI=:mlopqmOCKizStvRG3z14PQ==", null, "anmo" },
-                    { new Guid("b1c9bcfb-ac17-42db-924d-062c755aa474"), "C:\\Users\\balde\\source\\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Yiso.jpeg", "Neon", null, null, "yiso@mtr.moon", "Yi", "So-Yeon", "zygdXJKeXaglxCmRv3uF7c7Jhn/KMEIhSdEZqwJRRow=:sdRQ1lQmTJ+3F8N0jnSUCQ==", null, "yiso" }
+                    { new Guid("8c0e2924-e290-4cd3-a7eb-d360a6a51fbc"), "C:\\Users\\balde\\source\\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Yuga.jpg", "First Man", null, null, "yuga@mtr.moon", "Yuri", "Gagarin", "ucJa3b1m3QCZvHM67PqYNTjKrqm6xJ01C/cXXSlvcRM=:eNJJotJygM5lfRT7VsnM5w==", null, "yuga" },
+                    { new Guid("3be03faa-9c78-4d3b-bc08-8c3c89bac208"), "C:\\Users\\balde\\source\\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Alsh.jpg", "Shepard", null, null, "alsh@mtr.moon", "Alan", "Shepard", "ITzi4V0MySnXMJA5WJu+p/zrjJ7v8F6JR//bUq7kzTM=:54+4rtMAB8384oiNiNCTDg==", null, "alsh" },
+                    { new Guid("9e70fddc-0693-4c38-be13-3f6a9681f2ec"), "C:\\Users\\balde\\source\\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Vate.jpg", "Valentine", null, null, "vate@mtr.moon", "Valentina", "Tereshkova", "F0RxBSmnVern/V/fHx4SNRMeZ+G6y/weNcBI37ONaSg=:/7FYNPQaAzjB+Qv7oTaXVw==", null, "vate" },
+                    { new Guid("c37140b0-fd12-4867-9868-03f82ccba040"), "C:\\Users\\balde\\source\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Gubl.jpg", "bluey", null, null, "gubi@mtr.moon", "Guion", "Bluford", "VHblRfxl4dZ2pPNtHWih3gAWtQKtRwa4rtvctzafJPo=:/mo5k7OFhrEkp6m+z0PNsA==", null, "gubl" },
+                    { new Guid("f8928099-a389-467d-93ee-32be7c14f62b"), "C:\\Users\\balde\\source\\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Anmo.jpg", "Great Dane", null, null, "anmo@mtr.moon", "Andreas", "Mogensen", "K2HIUcKqjvNUUoHSWczlnnSnR4s6gWZ1F4sqGexWQGI=:mlopqmOCKizStvRG3z14PQ==", null, "anmo" },
+                    { new Guid("95cef011-8395-4876-a8dc-b3d542137d6d"), "C:\\Users\\balde\\source\\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Yiso.jpeg", "Neon", null, null, "yiso@mtr.moon", "Yi", "So-Yeon", "zygdXJKeXaglxCmRv3uF7c7Jhn/KMEIhSdEZqwJRRow=:sdRQ1lQmTJ+3F8N0jnSUCQ==", null, "yiso" }
                 });
 
             migrationBuilder.InsertData(
@@ -135,13 +134,13 @@ namespace Sundown2._0.Migrations
                 columns: new[] { "Id", "DeletedAt", "DistanceToISS", "Latitude", "Longitude", "Name", "UpdatedAt" },
                 values: new object[,]
                 {
-                    { 1, null, 0.0, 55.684740222145393, 12.509714835254639, "Europe", null },
-                    { 2, null, 0.0, 41.149626026644633, 119.33727554032843, "China", null },
-                    { 3, null, 0.0, 40.014407426017335, -103.68329704730307, "America", null },
-                    { 4, null, 0.0, -21.029736672213531, 23.770767883255459, "Africa", null },
-                    { 5, null, 0.0, -33.007020987324388, 117.83314818861444, "Australia", null },
-                    { 6, null, 0.0, 19.330540162912126, 79.14236662251713, "India", null },
-                    { 7, null, 0.0, -34.050351176517886, -65.926829655687428, "Argentina", null }
+                    { new Guid("e378f454-0793-46e6-824c-2e8aae7190bb"), null, 0.0, 55.684740222145393, 12.509714835254639, "Europe", null },
+                    { new Guid("f090f415-9d6d-45c6-8b83-9ccb77d6e114"), null, 0.0, 41.149626026644633, 119.33727554032843, "China", null },
+                    { new Guid("25e4a43b-7e7e-423c-982b-f01017547f5d"), null, 0.0, 40.014407426017335, -103.68329704730307, "America", null },
+                    { new Guid("970a3da5-99a8-48ee-b7ac-06844a5616d0"), null, 0.0, -21.029736672213531, 23.770767883255459, "Africa", null },
+                    { new Guid("c3085e3f-8797-4256-8aaa-7d541726fcd0"), null, 0.0, -33.007020987324388, 117.83314818861444, "Australia", null },
+                    { new Guid("fe78d56f-3413-4196-a532-46910fb297ef"), null, 0.0, 19.330540162912126, 79.14236662251713, "India", null },
+                    { new Guid("69fd5693-2ff6-4f5c-92bc-5c728f1920fe"), null, 0.0, -34.050351176517886, -65.926829655687428, "Argentina", null }
                 });
 
             migrationBuilder.CreateIndex(

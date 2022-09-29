@@ -1,14 +1,7 @@
 ﻿using Moq;
-using Sundown2._0.Controllers;
-using Sundown2._0.Entities;
 using Sundown2._0.ExceptionHandling.Exceptions;
 using Sundown2._0.Services;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace UnitTests.ServicesTests
