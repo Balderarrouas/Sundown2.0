@@ -27,9 +27,9 @@ namespace Sundown2._0.Services
         AuthenticateResponse Authenticate(AuthenticateRequest model);
         Astronaut Create(UserDTO model);
         Task<List<Astronaut>> GetAll();
-        Astronaut GetById(int id);
-        Astronaut Update(UserDTO model, int id);
-        Astronaut Delete(int id);
+        Astronaut GetById(Guid id);
+        Astronaut Update(UserDTO model, Guid id);
+        Astronaut Delete(Guid id);
 
     }
 
@@ -61,7 +61,7 @@ namespace Sundown2._0.Services
             foreach (var userItem in _context.Astronauts)
 
             {
-                if (userItem.Username == model.Username)
+                if (userItem.Email == model.Email)
                 {
                     var veryfiedPassword = VerifyPassword(userItem.Password, model.Password);
                     if (veryfiedPassword == true)
@@ -70,7 +70,7 @@ namespace Sundown2._0.Services
                     }
                 }
             }
-            var user = _context.Astronauts.SingleOrDefault(x => x.Username == model.Username && x.Password == model.Password);
+            var user = _context.Astronauts.SingleOrDefault(x => x.Email == model.Email && x.Password == model.Password);
 
             
             if (user == null)
@@ -98,8 +98,7 @@ namespace Sundown2._0.Services
 
             var user = _mapper.Map<Astronaut>(model);
 
-            
-
+                       
             var filePath = Path.Combine(_appSettings.MediaFolder, model.Avatar.FileName);
             using (var stream = new FileStream(filePath, FileMode.Create))
             {
@@ -122,7 +121,7 @@ namespace Sundown2._0.Services
             return _context.Astronauts.ToList();
         }
 
-        public Astronaut GetById(int id)
+        public Astronaut GetById(Guid id)
         {
             var user = _context.Astronauts.SingleOrDefault(x => x.AstronautId == id);
 
@@ -134,7 +133,7 @@ namespace Sundown2._0.Services
             return user;
         }
 
-        public Astronaut Update(UserDTO model, int id)
+        public Astronaut Update(UserDTO model, Guid id)
         {
             ValidationResult result = _validator.Validate(model);
 
@@ -172,7 +171,7 @@ namespace Sundown2._0.Services
         }
 
 
-        public Astronaut Delete(int id)
+        public Astronaut Delete(Guid id)
         {
             var userToDelete = _context.Astronauts.Find(id);
 
@@ -255,38 +254,5 @@ namespace Sundown2._0.Services
             }
             return false;
         }
-
-
-
-
-
-
-
-
-
-
-
-
-        //public void Register(RegisterRequest model)
-        //{
-        //    // Check if username is taken
-        //    if (_context.Users.Any(x => x.Username == model.Username))
-        //        throw new ApplicationException("Username'" + model.Username + "'is already taken");
-
-        //    // map model to a new user object
-        //    var user = _mapper.Map<User>(model);
-
-        //    // hash password
-        //    // var somethingElse =  Encoding.ASCII.GetBytes(_appSettings.Secret);
-
-        //    user.Password = HashPassword(model.Password);
-
-        //    // save user
-        //    _context.Users.Add(user);
-        //    _context.SaveChanges();
-        //}
-
-
-
     }
 }

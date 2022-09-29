@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System;
 
 namespace Sundown2._0.Models
 {

@@ -17,7 +17,6 @@ using Microsoft.Extensions.FileProviders;
 using System.IO;
 using Sundown2._0.ExceptionHandling;
 using FluentValidation;
-using Sundown2._0.Models;
 using Sundown2._0.Validators;
 using Sundown2._0.Utils;
 
@@ -39,9 +38,7 @@ namespace Sundown2._0
             services.AddControllers();
             services.AddTransient<ISpaceStationService, SpaceStationService>();
             services.AddTransient<ILandingForecastService, LandingForecastService>();
-            services.AddTransient<IUserService, UserService>();
-            //TODO 
-            // services.AddTransient<IPasswordHasherService, PassWordHasherService>();
+            services.AddTransient<IUserService, UserService>();            
             services.AddHttpClient<ISpaceStationService, SpaceStationService>();
             services.AddTransient<IMissionReportService, MissionReportService>();
             services.AddTransient<IMissionImageService, MissionImageService>();
@@ -51,12 +48,11 @@ namespace Sundown2._0
             services.AddScheduler();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-            // TODO 
-            // configure strongly typed settings objects <--- ??? spørg om dette
+            
             var appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);
 
-            // TODO - Få en gennemgang af dette
+            
             // configure jwt authentication
             var appSettings = appSettingsSection.Get<AppSettings>();
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);
@@ -133,7 +129,6 @@ namespace Sundown2._0
             app.UseAuthentication();
             app.UseAuthorization();
 
-            // Udkommenter i tilfælde af ting
             app.UseMiddleware<ErrorHandlingMiddleware>();
             app.UseEndpoints(endpoints =>
             {

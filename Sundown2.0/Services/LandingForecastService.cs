@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-using Sundown2._0.Data;
-using Sundown2._0.Entities;
+﻿using Sundown2._0.Entities;
 using Sundown2._0.ExceptionHandling.Exceptions;
 using Sundown2._0.Models;
 using System;

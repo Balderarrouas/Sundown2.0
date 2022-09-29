@@ -3,8 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Sundown2._0.Models;
 using Sundown2._0.Services;
 using System;
-using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Sundown2._0.Controllers

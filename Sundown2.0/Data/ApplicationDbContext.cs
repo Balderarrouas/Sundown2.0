@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Logging;
 using Sundown2._0.Data.Config;
 using Sundown2._0.Entities;
-using Sundown2._0.Models;
 
 namespace Sundown2._0.Data
 {
@@ -10,7 +9,6 @@ namespace Sundown2._0.Data
     {   
         public DbSet<Astronaut> Astronauts { get; set; }
         public DbSet<LandingFacility> LandingFacilities { get; set; }
-        // public DbSet<SpaceStation> SpaceStations { get; set; }
         public DbSet<ClosestLandingFacility> ClosestLandingFacility { get; set; }
         public DbSet<MissionReport> MissionReports { get; set; }
         public DbSet<MissionImage> MissionImages { get; set; }

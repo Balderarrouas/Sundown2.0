@@ -1,4 +1,5 @@
 ﻿using Sundown2._0.Entities;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
@@ -7,7 +8,7 @@ namespace Sundown2._0.Models
     public class AuthenticateResponse
     {
         [Key]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string CodeName { get; set; }

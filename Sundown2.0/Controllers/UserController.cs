@@ -4,6 +4,7 @@ using Microsoft.Extensions.Options;
 using Sundown2._0.Data;
 using Sundown2._0.Models;
 using Sundown2._0.Services;
+using System;
 using System.Threading.Tasks;
 
 namespace Sundown2._0.Controllers
@@ -51,7 +52,7 @@ namespace Sundown2._0.Controllers
 
 
         [HttpGet("getbyid/{id}")]
-        public IActionResult GetById(int id)
+        public IActionResult GetById(Guid id)
         {
             var response = _userService.GetById(id);
 
@@ -59,7 +60,7 @@ namespace Sundown2._0.Controllers
         }
 
         [HttpPut("update/{id}")]
-        public IActionResult Update([FromForm] UserDTO model, int id)
+        public IActionResult Update([FromForm] UserDTO model, Guid id)
         {
             var response = _userService.Update(model, id);
 
@@ -67,7 +68,7 @@ namespace Sundown2._0.Controllers
         }
 
         [HttpDelete("delete/{id}")]
-        public IActionResult Delete(int id)
+        public IActionResult Delete(Guid id)
         {
             var response = _userService.Delete(id);
 

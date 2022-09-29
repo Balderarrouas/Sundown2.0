@@ -8,7 +8,7 @@ namespace Sundown2._0.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class MissionImageController : ControllerBase
     {
 

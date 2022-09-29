@@ -1,5 +1,4 @@
-﻿using FluentValidation;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -18,7 +17,7 @@ namespace Sundown2._0.Entities
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
         public DateTime? DeletedAt { get; set; }
-        public int AstronautId { get; set; }
+        public Guid AstronautId { get; set; }
         public Astronaut Astronaut { get; set; }
         public List<MissionImage> MissionImages { get; set; }
 

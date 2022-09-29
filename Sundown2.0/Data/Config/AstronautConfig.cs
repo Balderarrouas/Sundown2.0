@@ -9,23 +9,25 @@ namespace Sundown2._0.Data.Config
         
         public void Configure(EntityTypeBuilder<Astronaut> builder)
         {
-
+            builder.HasIndex(astronaut => astronaut.Email).IsUnique();
+            builder.HasKey(astronaut => astronaut.AstronautId);
             builder.HasQueryFilter(x => x.DeletedAt == null);
+            
             builder.HasData(
                     new Astronaut
                     {
-                        AstronautId = 1,
+                        
                         FirstName = "Yuri",
                         LastName = "Gagarin",
                         CodeName = "First Man",
                         Username = "yuga",
                         Email = "yuga@mtr.moon",
                         Password = "ucJa3b1m3QCZvHM67PqYNTjKrqm6xJ01C/cXXSlvcRM=:eNJJotJygM5lfRT7VsnM5w==",
-                        Avatar = "C:\\Users\\balde\\source\\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Yuga.jpg"                       
+                        Avatar = "C:\\Users\\balde\\source\\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Yuga.jpg"
                     },
                      new Astronaut
                      {
-                         AstronautId = 2,
+                         
                          FirstName = "Alan",
                          LastName = "Shepard",
                          CodeName = "Shepard",
@@ -36,7 +38,7 @@ namespace Sundown2._0.Data.Config
                      },
                      new Astronaut
                      {
-                         AstronautId = 3,
+                         
                          FirstName = "Valentina",
                          LastName = "Tereshkova",
                          CodeName = "Valentine",
@@ -48,7 +50,7 @@ namespace Sundown2._0.Data.Config
                      },
                      new Astronaut
                      {
-                         AstronautId = 4,
+                         
                          FirstName = "Guion",
                          LastName = "Bluford",
                          CodeName = "bluey",
@@ -60,7 +62,7 @@ namespace Sundown2._0.Data.Config
                      },
                      new Astronaut
                      {
-                         AstronautId = 5,
+                         
                          FirstName = "Andreas",
                          LastName = "Mogensen",
                          CodeName = "Great Dane",
@@ -72,7 +74,7 @@ namespace Sundown2._0.Data.Config
                      },
                      new Astronaut
                      {
-                         AstronautId = 6,
+                         
                          FirstName = "Yi",
                          LastName = "So-Yeon",
                          CodeName = "Neon",

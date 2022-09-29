@@ -21,10 +21,9 @@ namespace Sundown2._0.Migrations
 
             modelBuilder.Entity("Sundown2._0.Entities.Astronaut", b =>
                 {
-                    b.Property<int>("AstronautId")
+                    b.Property<Guid>("AstronautId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Avatar")
                         .HasColumnType("nvarchar(max)");
@@ -39,7 +38,7 @@ namespace Sundown2._0.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
@@ -58,12 +57,16 @@ namespace Sundown2._0.Migrations
 
                     b.HasKey("AstronautId");
 
+                    b.HasIndex("Email")
+                        .IsUnique()
+                        .HasFilter("[Email] IS NOT NULL");
+
                     b.ToTable("Astronauts");
 
                     b.HasData(
                         new
                         {
-                            AstronautId = 1,
+                            AstronautId = new Guid("d209ab46-a03b-47d7-a4b6-348c62f7e18a"),
                             Avatar = "C:\\Users\\balde\\source\\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Yuga.jpg",
                             CodeName = "First Man",
                             Email = "yuga@mtr.moon",
@@ -74,7 +77,7 @@ namespace Sundown2._0.Migrations
                         },
                         new
                         {
-                            AstronautId = 2,
+                            AstronautId = new Guid("fad20788-1ebd-4ce6-a133-42eb34237d15"),
                             Avatar = "C:\\Users\\balde\\source\\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Alsh.jpg",
                             CodeName = "Shepard",
                             Email = "alsh@mtr.moon",
@@ -85,7 +88,7 @@ namespace Sundown2._0.Migrations
                         },
                         new
                         {
-                            AstronautId = 3,
+                            AstronautId = new Guid("f4b917ea-9102-41cc-9a11-eed91af2119b"),
                             Avatar = "C:\\Users\\balde\\source\\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Vate.jpg",
                             CodeName = "Valentine",
                             Email = "vate@mtr.moon",
@@ -96,7 +99,7 @@ namespace Sundown2._0.Migrations
                         },
                         new
                         {
-                            AstronautId = 4,
+                            AstronautId = new Guid("de7ae37e-a55c-42f4-8a54-d6df16488710"),
                             Avatar = "C:\\Users\\balde\\source\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Gubl.jpg",
                             CodeName = "bluey",
                             Email = "gubi@mtr.moon",
@@ -107,7 +110,7 @@ namespace Sundown2._0.Migrations
                         },
                         new
                         {
-                            AstronautId = 5,
+                            AstronautId = new Guid("527b65e7-35f6-4f1f-adab-0a6233091a19"),
                             Avatar = "C:\\Users\\balde\\source\\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Anmo.jpg",
                             CodeName = "Great Dane",
                             Email = "anmo@mtr.moon",
@@ -118,7 +121,7 @@ namespace Sundown2._0.Migrations
                         },
                         new
                         {
-                            AstronautId = 6,
+                            AstronautId = new Guid("b1c9bcfb-ac17-42db-924d-062c755aa474"),
                             Avatar = "C:\\Users\\balde\\source\\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Yiso.jpeg",
                             CodeName = "Neon",
                             Email = "yiso@mtr.moon",
@@ -293,8 +296,8 @@ namespace Sundown2._0.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("AstronautId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("AstronautId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");

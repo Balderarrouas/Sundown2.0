@@ -11,13 +11,12 @@ namespace Sundown2._0.Migrations
                 name: "Astronauts",
                 columns: table => new
                 {
-                    AstronautId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AstronautId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CodeName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Username = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Avatar = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -80,7 +79,7 @@ namespace Sundown2._0.Migrations
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    AstronautId = table.Column<int>(type: "int", nullable: false)
+                    AstronautId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -123,12 +122,12 @@ namespace Sundown2._0.Migrations
                 columns: new[] { "AstronautId", "Avatar", "CodeName", "CreatedAt", "DeletedAt", "Email", "FirstName", "LastName", "Password", "UpdatedAt", "Username" },
                 values: new object[,]
                 {
-                    { 1, "C:\\Users\\balde\\source\\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Yuga.jpg", "First Man", null, null, "yuga@mtr.moon", "Yuri", "Gagarin", "ucJa3b1m3QCZvHM67PqYNTjKrqm6xJ01C/cXXSlvcRM=:eNJJotJygM5lfRT7VsnM5w==", null, "yuga" },
-                    { 2, "C:\\Users\\balde\\source\\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Alsh.jpg", "Shepard", null, null, "alsh@mtr.moon", "Alan", "Shepard", "ITzi4V0MySnXMJA5WJu+p/zrjJ7v8F6JR//bUq7kzTM=:54+4rtMAB8384oiNiNCTDg==", null, "alsh" },
-                    { 3, "C:\\Users\\balde\\source\\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Vate.jpg", "Valentine", null, null, "vate@mtr.moon", "Valentina", "Tereshkova", "F0RxBSmnVern/V/fHx4SNRMeZ+G6y/weNcBI37ONaSg=:/7FYNPQaAzjB+Qv7oTaXVw==", null, "vate" },
-                    { 4, "C:\\Users\\balde\\source\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Gubl.jpg", "bluey", null, null, "gubi@mtr.moon", "Guion", "Bluford", "VHblRfxl4dZ2pPNtHWih3gAWtQKtRwa4rtvctzafJPo=:/mo5k7OFhrEkp6m+z0PNsA==", null, "gubl" },
-                    { 5, "C:\\Users\\balde\\source\\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Anmo.jpg", "Great Dane", null, null, "anmo@mtr.moon", "Andreas", "Mogensen", "K2HIUcKqjvNUUoHSWczlnnSnR4s6gWZ1F4sqGexWQGI=:mlopqmOCKizStvRG3z14PQ==", null, "anmo" },
-                    { 6, "C:\\Users\\balde\\source\\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Yiso.jpeg", "Neon", null, null, "yiso@mtr.moon", "Yi", "So-Yeon", "zygdXJKeXaglxCmRv3uF7c7Jhn/KMEIhSdEZqwJRRow=:sdRQ1lQmTJ+3F8N0jnSUCQ==", null, "yiso" }
+                    { new Guid("d209ab46-a03b-47d7-a4b6-348c62f7e18a"), "C:\\Users\\balde\\source\\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Yuga.jpg", "First Man", null, null, "yuga@mtr.moon", "Yuri", "Gagarin", "ucJa3b1m3QCZvHM67PqYNTjKrqm6xJ01C/cXXSlvcRM=:eNJJotJygM5lfRT7VsnM5w==", null, "yuga" },
+                    { new Guid("fad20788-1ebd-4ce6-a133-42eb34237d15"), "C:\\Users\\balde\\source\\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Alsh.jpg", "Shepard", null, null, "alsh@mtr.moon", "Alan", "Shepard", "ITzi4V0MySnXMJA5WJu+p/zrjJ7v8F6JR//bUq7kzTM=:54+4rtMAB8384oiNiNCTDg==", null, "alsh" },
+                    { new Guid("f4b917ea-9102-41cc-9a11-eed91af2119b"), "C:\\Users\\balde\\source\\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Vate.jpg", "Valentine", null, null, "vate@mtr.moon", "Valentina", "Tereshkova", "F0RxBSmnVern/V/fHx4SNRMeZ+G6y/weNcBI37ONaSg=:/7FYNPQaAzjB+Qv7oTaXVw==", null, "vate" },
+                    { new Guid("de7ae37e-a55c-42f4-8a54-d6df16488710"), "C:\\Users\\balde\\source\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Gubl.jpg", "bluey", null, null, "gubi@mtr.moon", "Guion", "Bluford", "VHblRfxl4dZ2pPNtHWih3gAWtQKtRwa4rtvctzafJPo=:/mo5k7OFhrEkp6m+z0PNsA==", null, "gubl" },
+                    { new Guid("527b65e7-35f6-4f1f-adab-0a6233091a19"), "C:\\Users\\balde\\source\\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Anmo.jpg", "Great Dane", null, null, "anmo@mtr.moon", "Andreas", "Mogensen", "K2HIUcKqjvNUUoHSWczlnnSnR4s6gWZ1F4sqGexWQGI=:mlopqmOCKizStvRG3z14PQ==", null, "anmo" },
+                    { new Guid("b1c9bcfb-ac17-42db-924d-062c755aa474"), "C:\\Users\\balde\\source\\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Yiso.jpeg", "Neon", null, null, "yiso@mtr.moon", "Yi", "So-Yeon", "zygdXJKeXaglxCmRv3uF7c7Jhn/KMEIhSdEZqwJRRow=:sdRQ1lQmTJ+3F8N0jnSUCQ==", null, "yiso" }
                 });
 
             migrationBuilder.InsertData(
@@ -144,6 +143,13 @@ namespace Sundown2._0.Migrations
                     { 6, null, 0.0, 19.330540162912126, 79.14236662251713, "India", null },
                     { 7, null, 0.0, -34.050351176517886, -65.926829655687428, "Argentina", null }
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Astronauts_Email",
+                table: "Astronauts",
+                column: "Email",
+                unique: true,
+                filter: "[Email] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MissionImages_MissionReportId",

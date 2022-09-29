@@ -57,7 +57,7 @@ namespace Sundown2._0.Services
             var httpContext = userHttpContext;
             var jwt = httpContext.Request.Headers["Authorization"];
             var userIdString = httpContext.User?.Claims.First(x => x.Type == ClaimTypes.UserData).Value;
-            var userId = int.Parse(userIdString);
+            var userId = Guid.Parse(userIdString);
 
 
             var missionReport = _mapper.Map<MissionReport>(model);

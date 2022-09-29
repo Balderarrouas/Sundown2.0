@@ -11,14 +11,9 @@ using System.Threading.Tasks;
 namespace Sundown2._0.Utils
 {
     
-
-
     public class SpaceStationUtils
     {
-
         
-
-        // TODO make dynamic
         public Dictionary<string, double> CreateCoordinateDictionary(SpaceStation spacestation)
         {
             var issCoord = new GeoCoordinate(spacestation.Latitude, spacestation.Longitude);
@@ -44,6 +39,7 @@ namespace Sundown2._0.Utils
 
             return dictionary;
         }
+
 
         public ClosestLandingFacility SortDictionary(Dictionary<string, double> dictionary)
         {

@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
-using System.ComponentModel.DataAnnotations;
 
 namespace Sundown2._0.Models
 {
