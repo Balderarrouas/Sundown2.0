@@ -19,7 +19,10 @@ namespace Sundown2._0.Migrations
                     Username = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Avatar = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Avatar = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -36,7 +39,9 @@ namespace Sundown2._0.Migrations
                     CurrentDistanceInMeters = table.Column<double>(type: "float", nullable: false),
                     Latitude = table.Column<double>(type: "float", nullable: false),
                     Longitude = table.Column<double>(type: "float", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -52,7 +57,9 @@ namespace Sundown2._0.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Latitude = table.Column<double>(type: "float", nullable: false),
                     Longitude = table.Column<double>(type: "float", nullable: false),
-                    DistanceToISS = table.Column<double>(type: "float", nullable: false)
+                    DistanceToISS = table.Column<double>(type: "float", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -113,29 +120,29 @@ namespace Sundown2._0.Migrations
 
             migrationBuilder.InsertData(
                 table: "Astronauts",
-                columns: new[] { "AstronautId", "Avatar", "CodeName", "Email", "FirstName", "LastName", "Password", "Username" },
+                columns: new[] { "AstronautId", "Avatar", "CodeName", "CreatedAt", "DeletedAt", "Email", "FirstName", "LastName", "Password", "UpdatedAt", "Username" },
                 values: new object[,]
                 {
-                    { 1, "C:\\Usersalde\\source\\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Yuga.jpg", "First Man", "yuga@mtr.moon", "Yuri", "Gagarin", "ucJa3b1m3QCZvHM67PqYNTjKrqm6xJ01C/cXXSlvcRM=:eNJJotJygM5lfRT7VsnM5w==", "yuga" },
-                    { 2, "C:\\Users\\balde\\source\\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Alsh.jpg", "Shepard", "alsh@mtr.moon", "Alan", "Shepard", "ITzi4V0MySnXMJA5WJu+p/zrjJ7v8F6JR//bUq7kzTM=:54+4rtMAB8384oiNiNCTDg==", "alsh" },
-                    { 3, "C:\\Users\\balde\\source\\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Vate.jpg", "Valentine", "vate@mtr.moon", "Valentina", "Tereshkova", "F0RxBSmnVern/V/fHx4SNRMeZ+G6y/weNcBI37ONaSg=:/7FYNPQaAzjB+Qv7oTaXVw==", "vate" },
-                    { 4, "C:\\Users\\balde\\source\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Gubl.jpg", "bluey", "gubi@mtr.moon", "Guion", "Bluford", "VHblRfxl4dZ2pPNtHWih3gAWtQKtRwa4rtvctzafJPo=:/mo5k7OFhrEkp6m+z0PNsA==", "gubl" },
-                    { 5, "C:\\Users\\balde\\source\\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Anmo.jpg", "Great Dane", "anmo@mtr.moon", "Andreas", "Mogensen", "K2HIUcKqjvNUUoHSWczlnnSnR4s6gWZ1F4sqGexWQGI=:mlopqmOCKizStvRG3z14PQ==", "anmo" },
-                    { 6, "C:\\Users\\balde\\source\\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Yiso.jpeg", "Neon", "yiso@mtr.moon", "Yi", "So-Yeon", "zygdXJKeXaglxCmRv3uF7c7Jhn/KMEIhSdEZqwJRRow=:sdRQ1lQmTJ+3F8N0jnSUCQ==", "yiso" }
+                    { 1, "C:\\Users\\balde\\source\\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Yuga.jpg", "First Man", null, null, "yuga@mtr.moon", "Yuri", "Gagarin", "ucJa3b1m3QCZvHM67PqYNTjKrqm6xJ01C/cXXSlvcRM=:eNJJotJygM5lfRT7VsnM5w==", null, "yuga" },
+                    { 2, "C:\\Users\\balde\\source\\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Alsh.jpg", "Shepard", null, null, "alsh@mtr.moon", "Alan", "Shepard", "ITzi4V0MySnXMJA5WJu+p/zrjJ7v8F6JR//bUq7kzTM=:54+4rtMAB8384oiNiNCTDg==", null, "alsh" },
+                    { 3, "C:\\Users\\balde\\source\\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Vate.jpg", "Valentine", null, null, "vate@mtr.moon", "Valentina", "Tereshkova", "F0RxBSmnVern/V/fHx4SNRMeZ+G6y/weNcBI37ONaSg=:/7FYNPQaAzjB+Qv7oTaXVw==", null, "vate" },
+                    { 4, "C:\\Users\\balde\\source\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Gubl.jpg", "bluey", null, null, "gubi@mtr.moon", "Guion", "Bluford", "VHblRfxl4dZ2pPNtHWih3gAWtQKtRwa4rtvctzafJPo=:/mo5k7OFhrEkp6m+z0PNsA==", null, "gubl" },
+                    { 5, "C:\\Users\\balde\\source\\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Anmo.jpg", "Great Dane", null, null, "anmo@mtr.moon", "Andreas", "Mogensen", "K2HIUcKqjvNUUoHSWczlnnSnR4s6gWZ1F4sqGexWQGI=:mlopqmOCKizStvRG3z14PQ==", null, "anmo" },
+                    { 6, "C:\\Users\\balde\\source\\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Yiso.jpeg", "Neon", null, null, "yiso@mtr.moon", "Yi", "So-Yeon", "zygdXJKeXaglxCmRv3uF7c7Jhn/KMEIhSdEZqwJRRow=:sdRQ1lQmTJ+3F8N0jnSUCQ==", null, "yiso" }
                 });
 
             migrationBuilder.InsertData(
                 table: "LandingFacilities",
-                columns: new[] { "Id", "DistanceToISS", "Latitude", "Longitude", "Name" },
+                columns: new[] { "Id", "DeletedAt", "DistanceToISS", "Latitude", "Longitude", "Name", "UpdatedAt" },
                 values: new object[,]
                 {
-                    { 1, 0.0, 55.684740222145393, 12.509714835254639, "Europe" },
-                    { 2, 0.0, 41.149626026644633, 119.33727554032843, "China" },
-                    { 3, 0.0, 40.014407426017335, -103.68329704730307, "America" },
-                    { 4, 0.0, -21.029736672213531, 23.770767883255459, "Africa" },
-                    { 5, 0.0, -33.007020987324388, 117.83314818861444, "Australia" },
-                    { 6, 0.0, 19.330540162912126, 79.14236662251713, "India" },
-                    { 7, 0.0, -34.050351176517886, -65.926829655687428, "Argentina" }
+                    { 1, null, 0.0, 55.684740222145393, 12.509714835254639, "Europe", null },
+                    { 2, null, 0.0, 41.149626026644633, 119.33727554032843, "China", null },
+                    { 3, null, 0.0, 40.014407426017335, -103.68329704730307, "America", null },
+                    { 4, null, 0.0, -21.029736672213531, 23.770767883255459, "Africa", null },
+                    { 5, null, 0.0, -33.007020987324388, 117.83314818861444, "Australia", null },
+                    { 6, null, 0.0, 19.330540162912126, 79.14236662251713, "India", null },
+                    { 7, null, 0.0, -34.050351176517886, -65.926829655687428, "Argentina", null }
                 });
 
             migrationBuilder.CreateIndex(

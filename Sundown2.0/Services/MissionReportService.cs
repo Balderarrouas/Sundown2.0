@@ -81,7 +81,6 @@ namespace Sundown2._0.Services
 
         public MissionReport GetById(Guid id)
         {
-            //var fakeId = Guid.NewGuid();
             var missionreport = _context.MissionReports.SingleOrDefault(x => x.MissionReportId == id);
 
             if (missionreport == null)

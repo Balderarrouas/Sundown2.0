@@ -11,6 +11,12 @@ using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using Sundown2._0.Entities;
 using Sundown2._0.ExceptionHandling.Exceptions;
+using FluentValidation;
+using AutoMapper;
+using FluentValidation.Results;
+using System.IO;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace Sundown2._0.Services
 {
@@ -19,7 +25,12 @@ namespace Sundown2._0.Services
     public interface IUserService
     {
         AuthenticateResponse Authenticate(AuthenticateRequest model);
-        
+        Astronaut Create(UserDTO model);
+        Task<List<Astronaut>> GetAll();
+        Astronaut GetById(int id);
+        Astronaut Update(UserDTO model, int id);
+        Astronaut Delete(int id);
+
     }
 
 
@@ -28,14 +39,18 @@ namespace Sundown2._0.Services
     public class UserService : IUserService
     {
 
-        private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
         private readonly AppSettings _appSettings;
+        private readonly IMapper _mapper;
+        private readonly IValidator<UserDTO> _validator;
 
         public UserService(ApplicationDbContext applicationDbContext,
-            IOptions<AppSettings> appSettings)
+            IOptions<AppSettings> appSettings, IMapper mapper, IValidator<UserDTO> validator)
         {
             _context = applicationDbContext;
             _appSettings = appSettings.Value;
+            _mapper = mapper;
+            _validator = validator;
         }
 
         
@@ -70,6 +85,108 @@ namespace Sundown2._0.Services
 
             return new AuthenticateResponse(user, token);
         }
+
+
+        public Astronaut Create(UserDTO model)
+        {
+            ValidationResult result = _validator.Validate(model);
+
+            if (!result.IsValid)
+            {
+                throw new CustomValidationException("User did not fulfill the neccesary validation requirements");
+            }
+
+            var user = _mapper.Map<Astronaut>(model);
+
+            
+
+            var filePath = Path.Combine(_appSettings.MediaFolder, model.Avatar.FileName);
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                model.Avatar.CopyTo(stream);
+            }
+
+            user.Avatar = filePath;
+            user.CreatedAt = DateTime.UtcNow;
+            user.UpdatedAt = DateTime.UtcNow;
+            user.Password = HashPassword(model.Password);
+
+            _context.Astronauts.Add(user);
+            _context.SaveChanges();
+
+            return user;
+        }
+
+        public async Task<List<Astronaut>> GetAll()
+        {
+            return _context.Astronauts.ToList();
+        }
+
+        public Astronaut GetById(int id)
+        {
+            var user = _context.Astronauts.SingleOrDefault(x => x.AstronautId == id);
+
+            if (user == null)
+            {
+                throw new CustomNotFoundException($"Astronaut with {id} could not be found");
+            }
+
+            return user;
+        }
+
+        public Astronaut Update(UserDTO model, int id)
+        {
+            ValidationResult result = _validator.Validate(model);
+
+            if (!result.IsValid)
+            {
+                throw new CustomValidationException("Request body did not fulfill the neccesary validation requirements");
+            }
+
+            var filePath = Path.Combine(_appSettings.MediaFolder, model.Avatar.FileName);
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                model.Avatar.CopyTo(stream);
+            }
+
+            var userToUpdate = _context.Astronauts.SingleOrDefault(x => x.AstronautId == id);
+
+            if (userToUpdate == null)
+            {
+                throw new CustomNotFoundException($"Astronaut with {id} could not be found");
+            }
+
+            userToUpdate.FirstName = model.FirstName;
+            userToUpdate.LastName = model.LastName;
+            userToUpdate.CodeName = model.CodeName;
+            userToUpdate.Username = model.Username;
+            userToUpdate.Email = model.Email;
+            userToUpdate.Password = HashPassword(model.Password);
+            userToUpdate.Avatar = filePath;
+
+            _context.Astronauts.Update(userToUpdate);
+            _context.SaveChanges();
+
+            return userToUpdate;
+
+        }
+
+
+        public Astronaut Delete(int id)
+        {
+            var userToDelete = _context.Astronauts.Find(id);
+
+            if (userToDelete == null)
+            {
+                throw new CustomNotFoundException($"Astronaut with {id} could not be found");
+            }
+
+            userToDelete.DeletedAt = DateTime.UtcNow;
+            _context.SaveChanges();
+
+            return userToDelete;
+        }
+
 
 
 

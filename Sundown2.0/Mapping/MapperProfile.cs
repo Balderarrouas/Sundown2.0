@@ -13,7 +13,8 @@ namespace Sundown2._0.Mapping
             CreateMap<MissionReport, MissionReportDTO>();
             CreateMap<MissionImageDTO, MissionImage>();
             CreateMap<MissionImage, MissionImageDTO>();
-            CreateMap<ClosestLandingFacility, ClosestLandingDTO>();            
+            CreateMap<ClosestLandingFacility, ClosestLandingDTO>();
+            CreateMap<UserDTO, Astronaut>();
         }
 
 

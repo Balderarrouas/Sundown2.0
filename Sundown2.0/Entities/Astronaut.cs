@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Sundown2._0.Entities
@@ -14,6 +15,9 @@ namespace Sundown2._0.Entities
         public string Email { get; set; }
         public string Password { get; set; }
         public string Avatar { get; set; }
+        public DateTime? CreatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
+        public DateTime? DeletedAt { get; set; }
         public List<MissionReport> MissionReports { get; set; }
 
 

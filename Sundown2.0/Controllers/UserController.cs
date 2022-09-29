@@ -4,7 +4,7 @@ using Microsoft.Extensions.Options;
 using Sundown2._0.Data;
 using Sundown2._0.Models;
 using Sundown2._0.Services;
-
+using System.Threading.Tasks;
 
 namespace Sundown2._0.Controllers
 {
@@ -31,6 +31,49 @@ namespace Sundown2._0.Controllers
             var response = _userService.Authenticate(model);
 
             return Ok(response);
-        } 
+        }
+
+        [HttpPost("create")]
+        public IActionResult Create([FromForm]UserDTO model)
+        {
+            var response = _userService.Create(model);
+
+            return Ok(response);
+        }
+
+        [HttpGet("getall")]
+        public async Task<IActionResult> GetAll()
+        {
+            var response = await _userService.GetAll();
+
+            return Ok(response);
+        }
+
+
+        [HttpGet("getbyid/{id}")]
+        public IActionResult GetById(int id)
+        {
+            var response = _userService.GetById(id);
+
+            return Ok(response);
+        }
+
+        [HttpPut("update/{id}")]
+        public IActionResult Update([FromForm] UserDTO model, int id)
+        {
+            var response = _userService.Update(model, id);
+
+            return Ok(response);
+        }
+
+        [HttpDelete("delete/{id}")]
+        public IActionResult Delete(int id)
+        {
+            var response = _userService.Delete(id);
+
+            return Ok(response);
+        }
+
+        
     }
 }

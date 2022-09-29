@@ -32,8 +32,7 @@ namespace Sundown2._0.Services
         private readonly SpaceStationUtils _spaceStationUtils;
         
 
-        public SpaceStationService(HttpClient httpClient, ApplicationDbContext context, SpaceStationUtils spaceStationUtils
-            )
+        public SpaceStationService(HttpClient httpClient, ApplicationDbContext context, SpaceStationUtils spaceStationUtils)
         {
             _httpClient = httpClient;
             _httpClient.BaseAddress = BaseAddress;
@@ -81,6 +80,7 @@ namespace Sundown2._0.Services
                     closestLandingSite.Latitude = landingSiteItems.Latitude;
                     closestLandingSite.Longitude = landingSiteItems.Longitude;
                     closestLandingSite.CreatedAt = DateTime.UtcNow;
+                    closestLandingSite.UpdatedAt = DateTime.UtcNow;
 
                     _applicationDbContext.Add(closestLandingSite);
                     _applicationDbContext.SaveChanges();

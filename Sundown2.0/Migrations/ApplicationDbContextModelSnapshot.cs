@@ -32,6 +32,12 @@ namespace Sundown2._0.Migrations
                     b.Property<string>("CodeName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
@@ -44,6 +50,9 @@ namespace Sundown2._0.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Username")
                         .HasColumnType("nvarchar(max)");
 
@@ -55,7 +64,7 @@ namespace Sundown2._0.Migrations
                         new
                         {
                             AstronautId = 1,
-                            Avatar = "C:\\Usersalde\\source\\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Yuga.jpg",
+                            Avatar = "C:\\Users\\balde\\source\\repos\\Sundown2.0\\Sundown2.0\\Media\\Images\\Yuga.jpg",
                             CodeName = "First Man",
                             Email = "yuga@mtr.moon",
                             FirstName = "Yuri",
@@ -136,11 +145,17 @@ namespace Sundown2._0.Migrations
                     b.Property<double>("CurrentDistanceInMeters")
                         .HasColumnType("float");
 
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<double>("Latitude")
                         .HasColumnType("float");
 
                     b.Property<double>("Longitude")
                         .HasColumnType("float");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -154,6 +169,9 @@ namespace Sundown2._0.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<double>("DistanceToISS")
                         .HasColumnType("float");
 
@@ -165,6 +183,9 @@ namespace Sundown2._0.Migrations
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 

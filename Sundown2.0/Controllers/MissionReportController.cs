@@ -40,7 +40,7 @@ namespace Sundown2._0.Controllers
         }
 
         
-        [HttpGet("getAll")]
+        [HttpGet("getall")]
         public async Task<IActionResult> GetAll()
         {
             var response = await _missionReportService.GetAll();
